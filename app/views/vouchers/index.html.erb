@@ -14,6 +14,7 @@
       <th>Account</th>
       <th>Department</th>
       <th>Description</th>
+      <th>Amount</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -30,6 +31,7 @@
         <td><%= voucher.account.title %></td>
         <td><%= voucher.department.name %></td>
         <td><%= voucher.description %></td>
+        <td><%= sum_hash(voucher.particulars)%></td>
         <td><%= link_to 'Show', voucher %></td>
         <td><%= link_to 'Edit', edit_voucher_path(voucher) %></td>
         <td><%= link_to 'Destroy', voucher, method: :delete, data: { confirm: 'Are you sure?' } %></td>

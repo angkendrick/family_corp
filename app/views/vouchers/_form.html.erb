@@ -47,6 +47,17 @@
     <%= f.label :description %><br>
     <%= f.text_field :description %>
   </div>
+  <hr>
+  <div id="particulars">
+    <%= f.fields_for :particulars do |particular| %>
+      <%= render 'vouchers/particular_fields', f: particular %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association 'add a particular', f, :particulars %>
+    </div>
+    <hr>
+  </div>
+  <br>
   <div class="actions">
     <%= f.submit %>
   </div>

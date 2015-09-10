@@ -4,4 +4,6 @@ class Voucher < ActiveRecord::Base
   belongs_to :customer
   belongs_to :department
   has_many :particulars
+
+  accepts_nested_attributes_for :particulars, allow_destroy: true
 end

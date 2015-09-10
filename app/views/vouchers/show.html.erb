@@ -45,5 +45,20 @@
   <%= @voucher.description %>
 </p>
 
+<h3>Particulars</h3>
+<table class="table table-bordered">
+  <% @voucher.particulars.each do |particular| %>
+    <tr>
+      <td><%= particular.description %></td>
+      <td><%= particular.amount %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+  <strong>Total:</strong>
+  <%= sum_hash(@voucher.particulars) %> Pesos
+</p>
+
 <%= link_to 'Edit', edit_voucher_path(@voucher) %> |
 <%= link_to 'Back', vouchers_path %>
