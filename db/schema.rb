@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910040254) do
+ActiveRecord::Schema.define(version: 20150910050054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "banks", force: :cascade do |t|
     t.string   "name"
@@ -22,9 +28,38 @@ ActiveRecord::Schema.define(version: 20150910040254) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "vouchers", force: :cascade do |t|
+  create_table "customers", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "particulars", force: :cascade do |t|
+    t.integer  "voucher_id"
+    t.string   "description"
+    t.decimal  "amount"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "vouchers", force: :cascade do |t|
+    t.integer  "customer_id"
+    t.integer  "bank_id"
+    t.integer  "purchase_order"
+    t.integer  "confirmation_number"
+    t.string   "description"
+    t.integer  "cheque_number"
+    t.date     "cheque_date"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "account_id"
+    t.integer  "department_id"
   end
 
 end
