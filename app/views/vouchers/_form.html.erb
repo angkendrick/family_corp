@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :customer %><br>
-    <%= f.number_field :customer %>
+    <%= f.label :customer_id %><br>
+    <%= f.collection_select :customer_id, Customer.all, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :purchase_order %><br>
@@ -25,15 +25,15 @@
   </div>
   <div class="field">
     <%= f.label :account_id %><br>
-    <%= f.number_field :account_id %>
+    <%= f.collection_select :account_id, Account.all, :id, :title %>
   </div>
   <div class="field">
     <%= f.label :department_id %><br>
-    <%= f.number_field :department_id %>
+    <%= f.collection_select :department_id, Department.all, :id, :name %>
   </div>
   <div class="field">
-    <%= f.label :bank %><br>
-    <%= f.number_field :bank %>
+    <%= f.label :bank_id %><br>
+    <%= f.collection_select :bank_id, Bank.all, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :cheque_number %><br>

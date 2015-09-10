@@ -5,10 +5,14 @@
 <table>
   <thead>
     <tr>
-      <th>Customer</th>
+      <th>Paid To</th>
       <th>Bank</th>
-      <th>Purchase order</th>
-      <th>Confirmation number</th>
+      <th>Cheque #</th>
+      <th>Cheque Date</th>
+      <th>PO #</th>
+      <th>CN</th>
+      <th>Account</th>
+      <th>Department</th>
       <th>Description</th>
       <th colspan="3"></th>
     </tr>
@@ -17,10 +21,14 @@
   <tbody>
     <% @vouchers.each do |voucher| %>
       <tr>
-        <td><%= voucher.customer %></td>
-        <td><%= voucher.bank %></td>
+        <td><%= voucher.customer.name %></td>
+        <td><%= voucher.bank.name %></td>
+        <td><%= voucher.cheque_number %></td>
+        <td><%= voucher.cheque_date %></td>
         <td><%= voucher.purchase_order %></td>
         <td><%= voucher.confirmation_number %></td>
+        <td><%= voucher.account.title %></td>
+        <td><%= voucher.department.name %></td>
         <td><%= voucher.description %></td>
         <td><%= link_to 'Show', voucher %></td>
         <td><%= link_to 'Edit', edit_voucher_path(voucher) %></td>
@@ -32,4 +40,9 @@
 
 <br>
 
-<%= link_to 'New Voucher', new_voucher_path %>
+<%= link_to 'New Voucher', new_voucher_path %> <br>
+<%= link_to 'Customer', customers_path %> |
+<%= link_to 'Bank', banks_path %> |
+<%= link_to 'Account', accounts_path %> |
+<%= link_to 'Department', departments_path %>
+

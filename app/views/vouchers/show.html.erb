@@ -1,13 +1,23 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Customer:</strong>
-  <%= @voucher.customer %>
+  <strong>Paid to:</strong>
+  <%= @voucher.customer.name %>
 </p>
 
 <p>
   <strong>Bank:</strong>
-  <%= @voucher.bank %>
+  <%= @voucher.bank.name %>
+</p>
+
+<p>
+  <strong>Cheque #:</strong>
+  <%= @voucher.cheque_number %>
+</p>
+
+<p>
+  <strong>Cheque date:</strong>
+  <%= @voucher.cheque_date %>
 </p>
 
 <p>
@@ -18,6 +28,16 @@
 <p>
   <strong>Confirmation number:</strong>
   <%= @voucher.confirmation_number %>
+</p>
+
+<p>
+  <strong>Account title:</strong>
+  <%= @voucher.account.title %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @voucher.department.name %>
 </p>
 
 <p>
