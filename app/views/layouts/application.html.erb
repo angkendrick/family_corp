@@ -12,14 +12,8 @@
 </head>
 <body>
 
+<%= render 'layouts/navbar' %>
 <%= yield %>
-
-<br><br>
-<%= link_to 'Voucher', vouchers_path %> |
-<%= link_to 'Customer', customers_path %> |
-<%= link_to 'Bank', banks_path %> |
-<%= link_to 'Account', accounts_path %> |
-<%= link_to 'Department', departments_path %>
 
 </body>
 </html>

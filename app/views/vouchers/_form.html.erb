@@ -11,49 +11,100 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :customer_id %><br>
-    <%= f.collection_select :customer_id, Customer.all, :id, :name %>
+  <div class="row">
+
+    <div class="col-md-4">
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4">
+            <%= f.label :customer_id %>
+          </div>
+          <div class="col-md-6">
+            <%= f.collection_select(:customer_id, Customer.all, :id, :name, {}, {class: "form-control"}) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4">
+            <%= f.label :account_id %>
+          </div>
+          <div class="col-md-6">
+            <%= f.collection_select(:account_id, Account.all, :id, :title, {} ,{class: "form-control"}) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4">
+            <%= f.label :department_id %>
+          </div>
+          <div class="col-md-6">
+            <%= f.collection_select(:department_id, Department.all, :id, :name, {} ,{class: "form-control"}) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4">
+            <%= f.label :bank_id %>
+          </div>
+          <div class="col-md-6">
+            <%= f.collection_select(:bank_id, Bank.all, :id, :name, {} ,{class: "form-control"}) %>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+    <div class="col-md-3 col-md-offset-3">
+      <div class="form-group form-inline">
+        <%= f.label 'PO#' %> <%= f.number_field :purchase_order, class: 'form-control' %>
+      </div>
+      <div class="form-group form-inline">
+        <%= f.label 'CN#' %> <%= f.number_field :confirmation_number, class: "form-control" %>
+      </div>
+      <div class="form-group form-inline">
+        <%= f.label 'CK#' %> <%= f.number_field :cheque_number, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label 'CK Date' %><br>
+        <%= f.date_select :cheque_date %>
+      </div>
+    </div>
+
   </div>
-  <div class="field">
-    <%= f.label :purchase_order %><br>
-    <%= f.number_field :purchase_order %>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-2">
+            <%= f.label :description %>
+          </div>
+          <div class="col-md-8">
+            <%= f.text_field :description, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :confirmation_number %><br>
-    <%= f.number_field :confirmation_number %>
-  </div>
-  <div class="field">
-    <%= f.label :account_id %><br>
-    <%= f.collection_select :account_id, Account.all, :id, :title %>
-  </div>
-  <div class="field">
-    <%= f.label :department_id %><br>
-    <%= f.collection_select :department_id, Department.all, :id, :name %>
-  </div>
-  <div class="field">
-    <%= f.label :bank_id %><br>
-    <%= f.collection_select :bank_id, Bank.all, :id, :name %>
-  </div>
-  <div class="field">
-    <%= f.label :cheque_number %><br>
-    <%= f.number_field :cheque_number %>
-  </div>
-  <div class="field">
-    <%= f.label :cheque_date %><br>
-    <%= f.date_select :cheque_date %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
+
   <hr>
+
   <div id="particulars">
     <%= f.fields_for :particulars do |particular| %>
       <%= render 'vouchers/particular_fields', f: particular %>
     <% end %>
     <div class="links">
-      <%= link_to_add_association 'add a particular', f, :particulars %>
+      <%= link_to_add_association 'add ', f, :particulars %>
     </div>
     <hr>
   </div>
