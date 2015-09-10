@@ -2,7 +2,7 @@
 
 <h1>Listing Vouchers</h1>
 
-<table>
+<table class="table table-bordered">
   <thead>
     <tr>
       <th>Paid To</th>
@@ -40,6 +40,8 @@
 
 <br>
 
-<%= link_to 'New Voucher', new_voucher_path %> <br>
+<%= link_to new_voucher_path, class: 'btn btn-primary' do %>
+  <i>New Voucher <span class="glyphicon glyphicon-fire"></span></i>
+<% end %> <br>
 
 
