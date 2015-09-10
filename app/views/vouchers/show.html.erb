@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @voucher.customer %>
+</p>
+
+<p>
+  <strong>Bank:</strong>
+  <%= @voucher.bank %>
+</p>
+
+<p>
+  <strong>Purchase order:</strong>
+  <%= @voucher.purchase_order %>
+</p>
+
+<p>
+  <strong>Confirmation number:</strong>
+  <%= @voucher.confirmation_number %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @voucher.description %>
+</p>
+
+<%= link_to 'Edit', edit_voucher_path(@voucher) %> |
+<%= link_to 'Back', vouchers_path %>
