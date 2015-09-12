@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910050054) do
+ActiveRecord::Schema.define(version: 20150912004739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,10 +56,18 @@ ActiveRecord::Schema.define(version: 20150910050054) do
     t.string   "description"
     t.integer  "cheque_number"
     t.date     "cheque_date"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "account_id"
     t.integer  "department_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "cheque_image_file_name"
+    t.string   "cheque_image_content_type"
+    t.integer  "cheque_image_file_size"
+    t.datetime "cheque_image_updated_at"
   end
 
 end

@@ -44,3 +44,6 @@ group :development, :test do
 end
 
 gem 'cocoon'
+gem 'paperclip', '~> 4.3'
+gem 'paperclip-dropbox', '>= 1.1.7'
+gem 'figaro'
