@@ -95,7 +95,7 @@
   <%= sum_hash(@voucher.particulars) %> Pesos
 </p>
 
-<%= image_tag @voucher.cheque_image.url(:medium) %>
+<%= image_tag @voucher.cheque_image.url %>
 
 <%= link_to 'Edit', edit_voucher_path(@voucher) %> |
 <%= link_to 'Back', vouchers_path %>
