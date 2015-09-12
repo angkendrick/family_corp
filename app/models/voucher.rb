@@ -8,7 +8,7 @@ class Voucher < ActiveRecord::Base
 
   accepts_nested_attributes_for :particulars, allow_destroy: true
 
-  has_attached_file :cheque_image, :styles => { :medium => "700x" }, :default_url => "default.jpg",
+  has_attached_file :cheque_image, :default_url => "default.jpg",
                     storage: :dropbox,
                     :dropbox_credentials => Rails.root.join("config/dropbox.yml")
   validates_attachment_content_type :cheque_image, :content_type => /\Aimage\/.*\Z/
