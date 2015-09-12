@@ -104,14 +104,21 @@
       <%= render 'vouchers/particular_fields', f: particular %>
     <% end %>
     <div class="links">
-      <%= link_to_add_association 'add details', f, :particulars %>
+      <%= link_to_add_association 'add details', f, :particulars , :class => "label label-info", data: {"association-insertion-method" => :after, "association-insertion-node" => "#particulars"} %>
+      <br>
+      <div id="particulars"></div>
     </div>
     <hr>
   </div>
   <br>
 
+  <div class="row">
+  <div class="col-md-3">
   <div class="form-group">
+    <%= f.label 'Attach cheque image' %>
     <%= f.file_field :cheque_image, class: "form-control" %>
+  </div>
+  </div>
   </div>
 
   <div class="actions">

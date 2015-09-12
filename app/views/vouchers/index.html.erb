@@ -32,10 +32,10 @@
         <td><%= voucher.account.title %></td>
         <td><%= voucher.department.name %></td>
         <td><%= voucher.description %></td>
-        <td><%= sum_hash(voucher.particulars)%></td>
-        <td><%= link_to 'Show', voucher %></td>
-        <td><%= link_to 'Edit', edit_voucher_path(voucher) %></td>
-        <td><%= link_to 'Destroy', voucher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td align="right"><%= sum_hash(voucher.particulars)%></td>
+        <td align="center"><%= link_to voucher, class: "btn btn-success btn-xs" do %><span class="glyphicon glyphicon-zoom-in"></span><% end %></td>
+        <td align="center"><%= link_to edit_voucher_path(voucher), class: "btn btn-warning btn-xs" do %><span class="glyphicon glyphicon-pencil"></span><% end %></td>
+        <td align="center"><%= link_to voucher, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %><span class="glyphicon glyphicon-remove"></span><% end %></td>
       </tr>
     <% end %>
   </tbody>
