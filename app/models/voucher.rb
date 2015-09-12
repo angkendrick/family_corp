@@ -15,6 +15,7 @@ class Voucher < ActiveRecord::Base
          name: customer(&:name),
          title: account(&:title),
          name2: department(&:name),
+         bank: bank(&:name),
          description: particulars.map(&:description)
     )
   end
