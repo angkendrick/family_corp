@@ -3,9 +3,9 @@
 # Install the pg driver:
 #   gem install pg
 # On OS X with Homebrew:
-#   gem install pg -- --with-pg-system=/usr/local/bin/pg_config
+#   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
 # On OS X with MacPorts:
-#   gem install pg -- --with-pg-system=/opt/local/lib/postgresql84/bin/pg_config
+#   gem install pg -- --with-pg-config=/opt/local/lib/postgresql84/bin/pg_config
 # On Windows:
 #   gem install pg
 #       Choose the win32 build.
@@ -59,7 +59,7 @@ test:
   <<: *default
   database: familyCorp_test
 
-# As with system/secrets.yml, you never want to store sensitive information,
+# As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
 #
