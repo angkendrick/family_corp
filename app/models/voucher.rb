@@ -14,7 +14,7 @@ class Voucher < ActiveRecord::Base
     attributes.merge(
          name: customer(&:name),
          title: account(&:title),
-         name: department(&:name),
+         name2: department(&:name),
          description: particulars.map(&:description)
     )
   end
