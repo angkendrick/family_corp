@@ -85,7 +85,7 @@
   <% @voucher.particulars.each do |particular| %>
     <tr>
       <td><%= particular.description %></td>
-      <td><%= particular.amount %></td>
+      <td><%= '%.2f' % particular.amount %></td>
     </tr>
   <% end %>
 </table>
