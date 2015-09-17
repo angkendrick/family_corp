@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  resources :companies
-  resources :vouchers do
-    collection do
-      get 'search'
+
+  resources :companies do
+    resources :vouchers do
+      collection do
+        get 'search'
+      end
     end
   end
+
   resources :departments
   resources :accounts
   resources :customers
