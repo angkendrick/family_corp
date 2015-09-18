@@ -10,9 +10,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_company
-    url = request.original_url
-    company_id = url[url.index('companies') + 10]
-    Company.find(company_id).name
+    begin
+      url = request.original_url
+      company_id = url[url.index('companies') + 10]
+      Company.find(company_id).name
+    rescue
+
+    end
   end
 
 end
