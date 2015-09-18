@@ -1,6 +1,6 @@
 class VouchersController < ApplicationController
   before_action :set_voucher, only: [:show, :edit, :update, :destroy]
-  before_action :load_company, only: [:create, :index, :edit, :show, :new]
+  before_action :load_company, only: [:create, :index, :edit, :show, :new, :search]
 
   # GET /vouchers
   # GET /vouchers.json
@@ -64,9 +64,9 @@ class VouchersController < ApplicationController
 
   def search
     if params[:search].present?
-      @vouchers = Voucher.search(params[:search])
+      @vouchers = Voucher.search(params[:search], where: {company_id: params[:company_id]})
     else
-      @vouchers = Voucher.all
+      @vouchers = @company.vouchers.all
     end
   end
 

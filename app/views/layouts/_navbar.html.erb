@@ -16,7 +16,17 @@
           <li><%= link_to 'Company', companies_path %></li>
         </ul>
       </li>
-      <li>original link to voucher</li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Working on: <strong><%= current_company %></strong> <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <% company_list.map do |company| %>
+            <li><%= link_to company.name, company_vouchers_path(company) %></li>
+          <% end %>
+        </ul>
+      </li>
+      <!--<p class="navbar-text navbar-right"><span class="glyphicon glyphicon-home"></span></p>-->
     </ul>
   </div>
 </nav>
