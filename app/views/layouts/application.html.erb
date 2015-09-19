@@ -14,7 +14,10 @@
 <body>
 
 <%= render 'layouts/navbar' %>
-<%= yield %>
+<div class="container-fluid">
+  <%= render 'layouts/alert', locals: { flash: flash }%>
+  <%= yield %>
+</div>
 
 </body>
 </html>
