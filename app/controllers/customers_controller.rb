@@ -4,7 +4,7 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all.order(name: :asc).page(params[:page]).per(10)
+    @customers = Customer.all.order(name: :asc).page(params[:page])
   end
 
   # GET /customers/1

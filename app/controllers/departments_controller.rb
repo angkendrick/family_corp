@@ -4,7 +4,7 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.all.order(name: :asc).page(params[:page]).per(10)
+    @departments = Department.all.order(name: :asc).page(params[:page])
   end
 
   # GET /departments/1
