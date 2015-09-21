@@ -4,7 +4,7 @@ class BanksController < ApplicationController
   # GET /banks
   # GET /banks.json
   def index
-    @banks = Bank.all.order(name: :asc)
+    @banks = Bank.all.order(name: :asc).page(params[:page]).per(10)
   end
 
   # GET /banks/1
