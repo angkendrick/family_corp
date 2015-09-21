@@ -5,7 +5,7 @@ class VouchersController < ApplicationController
   # GET /vouchers
   # GET /vouchers.json
   def index
-    @vouchers = @company.vouchers.all
+    @vouchers = @company.vouchers.all.order(id: :asc)
   end
 
   # GET /vouchers/1

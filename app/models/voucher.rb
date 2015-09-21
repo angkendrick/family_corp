@@ -9,6 +9,7 @@ class Voucher < ActiveRecord::Base
 
   accepts_nested_attributes_for :particulars, allow_destroy: true
 
+
   searchkick
 
   def search_data
@@ -32,6 +33,7 @@ class Voucher < ActiveRecord::Base
                     :dropbox_credentials => Rails.root.join("config/dropbox.yml")
   validates_attachment_content_type :cheque_image, :content_type => /\Aimage\/.*\Z/
 
+  protected
 
   def rename_upload_image
     if self.cheque_image.dirty?
@@ -39,5 +41,6 @@ class Voucher < ActiveRecord::Base
       self.cheque_image.instance_write :file_name, "#{Time.now.strftime("%m%d%Y-%H%M%S")}#{extension}"
     end
   end
+
 
 end
