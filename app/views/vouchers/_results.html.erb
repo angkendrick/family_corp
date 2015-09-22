@@ -48,9 +48,9 @@
       <td><%= voucher.department.name %></td>
       <td><%= voucher.description %></td>
       <td align="right"><%= sum_hash(voucher.particulars)%></td>
-      <td align="center"><%= link_to company_voucher_path(@company, voucher), class: "btn btn-success btn-xs" do %><span class="glyphicon glyphicon-zoom-in"></span><% end %></td>
-      <td align="center"><%= link_to edit_company_voucher_path(@company, voucher), class: "btn btn-warning btn-xs" do %><span class="glyphicon glyphicon-pencil"></span><% end %></td>
-      <td align="center"><%= link_to company_voucher_path(@company, voucher), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %><span class="glyphicon glyphicon-remove"></span><% end %></td>
+      <td align="center"><%= link_to company_voucher_path(@company, voucher), class: "btn btn-success btn-xs", title: 'View', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %><span class="glyphicon glyphicon-zoom-in"></span><% end %></td>
+      <td align="center"><%= link_to edit_company_voucher_path(@company, voucher), class: "btn btn-warning btn-xs", title: 'Edit', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %><span class="glyphicon glyphicon-pencil"></span><% end %></td>
+      <td align="center"><%= link_to company_voucher_path(@company, voucher), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs", title: 'Delete', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %><span class="glyphicon glyphicon-remove"></span><% end %></td>
     </tr>
   <% end %>
   </tbody>

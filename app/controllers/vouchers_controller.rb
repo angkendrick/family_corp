@@ -82,7 +82,7 @@ class VouchersController < ApplicationController
     end
 
     def voucher_params
-      params.require(:voucher).permit(:customer_id, :bank_id, :purchase_order, :confirmation_number, :description, :cheque_date, :cheque_number, :account_id, :department_id, :company_id, :cheque_image, particulars_attributes: [:id, :voucher_id, :description, :amount, :_destroy])
+      params.require(:voucher).permit(:customer_id, :bank_id, :purchase_order, :confirmation_number, :description, :cheque_date, :cheque_number, :account_id, :department_id, :company_id, :user_id, :cheque_image, particulars_attributes: [:id, :voucher_id, :description, :amount, :_destroy])
     end
 
     def load_company

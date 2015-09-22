@@ -1,5 +1,22 @@
-<h1>Show Voucher</h1>
-
+<div class="row">
+  <div class="col-md-4">
+    <h1>Show Voucher</h1>
+  </div>
+  <div class="col-md-4 col-md-offset-4">
+    <h1>
+    <%= link_to company_vouchers_path, class: 'btn btn-primary', title: 'Back', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+      <span class="glyphicon glyphicon-step-backward"></span>
+    <% end %> &nbsp;
+    <%= link_to edit_company_voucher_path(@company, @voucher), class: 'btn btn-primary', title: 'Edit', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %> &nbsp;
+    <%= link_to "#{generate_pdf_url}", class: 'btn btn-primary', title: 'Print Voucher', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+      <span class="glyphicon glyphicon-print"></span>
+    <% end %>
+    </h1>
+  </div>
+</div>
+<br>
 <br>
 <div class="row">
 
@@ -97,8 +114,3 @@
 <hr>
 
 <%= image_tag @voucher.cheque_image.url, height: 300, class: 'img-rounded' %>
-
-<hr>
-
-<%= link_to 'Edit', edit_company_voucher_path(@company, @voucher) %> |
-<%= link_to 'Back', company_vouchers_path %>
