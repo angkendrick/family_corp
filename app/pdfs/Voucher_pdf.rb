@@ -16,7 +16,12 @@ class VoucherPdf < Prawn::Document
     x = 440
     y = 350
 
-    # voucher heading
+    # Company
+    bounding_box([x - 460, y + 5], :width => 110, :height => 20) do
+      text @voucher.company.name, :valign => :center, :align => :left, :size => 14
+    end
+
+    # Voucher heading
     bounding_box([x, y], :width => 110, :height => 20) do
       transparent(1) {stroke_bounds}
       text 'VOUCHER', :valign => :center, :align => :center
@@ -171,7 +176,43 @@ class VoucherPdf < Prawn::Document
   end
 
   def footer
+    x = -20
+    y = 40
 
+    # Prepared by and value
+    bounding_box([x, y], :width => 130, :height => 15) do
+      text 'PREPARED BY', :valign => :center, :align => :left, :size => 10
+    end
+    bounding_box([x + 75, y], :width => 130, :height => 15) do
+      transparent(1) {stroke_bounds}
+      text @voucher.user.first_name, :valign => :center, :align => :center, :size => 10
+    end
+
+    # Prepared by and value
+    bounding_box([x, y - 15], :width => 130, :height => 15) do
+      text 'APPROVED BY', :valign => :center, :align => :left, :size => 10
+    end
+    bounding_box([x + 75, y - 15], :width => 130, :height => 15) do
+      transparent(1) {stroke_bounds}
+      text '', :valign => :center, :align => :center, :size => 10
+    end
+
+    # Pesos and value
+    bounding_box([x + 250, y], :width => 130, :height => 30) do
+      text 'PESOS', :valign => :center, :align => :left, :size => 10
+    end
+    bounding_box([x + 290, y], :width => 280, :height => 30) do
+      transparent(1) {stroke_bounds}
+      text sum_hash_words(@voucher.particulars), :valign => :center, :align => :center, :size => 10
+    end
+
+    # Received by
+    bounding_box([x + 250, y - 35], :width => 130, :height => 30) do
+      text 'RECEIVED BY', :valign => :center, :align => :left, :size => 10
+    end
+    bounding_box([x + 320, y - 35], :width => 250, :height => 30) do
+      transparent(1) {stroke_bounds}
+    end
   end
 
 

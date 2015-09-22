@@ -6,6 +6,7 @@ class Voucher < ActiveRecord::Base
   belongs_to :department
   belongs_to :company
   has_many :particulars
+  belongs_to :user
 
   accepts_nested_attributes_for :particulars, allow_destroy: true
 
