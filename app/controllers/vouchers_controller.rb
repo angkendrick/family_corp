@@ -2,28 +2,33 @@ class VouchersController < ApplicationController
   before_action :set_voucher, only: [:show, :edit, :update, :destroy]
   before_action :load_company, only: [:create, :index, :edit, :show, :new, :search]
 
-  # GET /vouchers
-  # GET /vouchers.json
+
   def index
     @vouchers = @company.vouchers.all.order(id: :asc).page(params[:page])
   end
 
-  # GET /vouchers/1
-  # GET /vouchers/1.json
   def show
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = VoucherPdf.new(@voucher, view_context)
+        send_data pdf.render, filename:
+            "voucher_#{@voucher.created_at.strftime('%m/%d/%Y')}.pdf",
+            type: 'application/pdf',
+            disposition:'inline' #open pdf instead of downloading
+      end
+    end
+
   end
 
-  # GET /vouchers/new
   def new
     @voucher = Voucher.new
   end
 
-  # GET /vouchers/1/edit
   def edit
   end
 
-  # POST /vouchers
-  # POST /vouchers.json
   def create
     @voucher = @company.vouchers.new(voucher_params)
 
@@ -38,8 +43,6 @@ class VouchersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /vouchers/1
-  # PATCH/PUT /vouchers/1.json
   def update
     respond_to do |format|
       if @voucher.update(voucher_params)
@@ -52,8 +55,6 @@ class VouchersController < ApplicationController
     end
   end
 
-  # DELETE /vouchers/1
-  # DELETE /vouchers/1.json
   def destroy
     @voucher.destroy
     respond_to do |format|
@@ -76,12 +77,10 @@ class VouchersController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_voucher
       @voucher = Voucher.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def voucher_params
       params.require(:voucher).permit(:customer_id, :bank_id, :purchase_order, :confirmation_number, :description, :cheque_date, :cheque_number, :account_id, :department_id, :company_id, :cheque_image, particulars_attributes: [:id, :voucher_id, :description, :amount, :_destroy])
     end
