@@ -1,4 +1,66 @@
-<p id="notice"><%= notice %></p>
+<h1>Show Requisition</h1>
 
-<%= link_to 'Edit', edit_requisition_path(@requisition) %> |
-<%= link_to 'Back', requisitions_path %>
+<div class="row">
+
+  <div class="col-md-4">
+
+
+    <div class="row">
+      <div class="col-md-4">
+        Purchase Order
+      </div>
+      <div class="col-md-6">
+        <%= @requisition.purchase_order %>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-md-4">
+        Confirmation Number
+      </div>
+      <div class="col-md-6">
+        <%= @requisition.confirmation_number %>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-md-4">
+        Supplier
+      </div>
+      <div class="col-md-6">
+        <%= @requisition.customer.name %>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-md-4">
+        Usage
+      </div>
+      <div class="col-md-6">
+        <%= @requisition.asset.name %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        Department
+      </div>
+      <div class="col-md-6">
+        <%= @requisition.department.name %>
+      </div>
+    </div>
+
+
+
+  </div>
+
+</div>
+
+<%= link_to 'Edit', edit_company_requisition_path(@company, @requisition) %> |
+<%= link_to 'Back', company_requisitions_path %>

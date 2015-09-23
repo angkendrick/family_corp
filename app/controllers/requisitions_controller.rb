@@ -1,34 +1,28 @@
 class RequisitionsController < ApplicationController
   before_action :set_requisition, only: [:show, :edit, :update, :destroy]
+  before_action :load_company, only: [:create, :index, :edit, :show, :new, :search]
 
-  # GET /requisitions
-  # GET /requisitions.json
+
   def index
-    @requisitions = Requisition.all
+    @requisitions = @company.requisitions.all.order(id: :asc).page(params[:page])
   end
 
-  # GET /requisitions/1
-  # GET /requisitions/1.json
   def show
   end
 
-  # GET /requisitions/new
   def new
     @requisition = Requisition.new
   end
 
-  # GET /requisitions/1/edit
   def edit
   end
 
-  # POST /requisitions
-  # POST /requisitions.json
   def create
-    @requisition = Requisition.new(requisition_params)
+    @requisition = @company.requisitions.new(requisition_params)
 
     respond_to do |format|
       if @requisition.save
-        format.html { redirect_to @requisition, notice: 'Requisition was successfully created.' }
+        format.html { redirect_to company_requisitions_path, notice: 'Requisition was successfully created.' }
         format.json { render :show, status: :created, location: @requisition }
       else
         format.html { render :new }
@@ -37,8 +31,6 @@ class RequisitionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /requisitions/1
-  # PATCH/PUT /requisitions/1.json
   def update
     respond_to do |format|
       if @requisition.update(requisition_params)
@@ -51,8 +43,6 @@ class RequisitionsController < ApplicationController
     end
   end
 
-  # DELETE /requisitions/1
-  # DELETE /requisitions/1.json
   def destroy
     @requisition.destroy
     respond_to do |format|
@@ -62,13 +52,16 @@ class RequisitionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_requisition
       @requisition = Requisition.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def requisition_params
-      params[:requisition]
+      params[:requisition].permit(:purchase_order, :confirmation_number, :customer_id, :user_id, :asset_id, :department_id, :company_id, :requisition_image, requisition_particulars_attributes: [:id, :quantity, :measurement_id, :requisition_id, :description, :amount, :_destroy])
+    end
+
+    def load_company
+      @company = Company.find(params[:company_id])
     end
 end

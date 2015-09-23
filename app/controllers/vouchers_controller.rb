@@ -71,9 +71,9 @@ class VouchersController < ApplicationController
     end
   end
 
-  def redirect
-    redirect_to '/companies/1/vouchers'
-  end
+  # def redirect
+  #   redirect_to '/companies/1/vouchers'
+  # end
 
   private
 
