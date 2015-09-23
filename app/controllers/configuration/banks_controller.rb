@@ -54,10 +54,13 @@ class Configuration::BanksController < ApplicationController
   # DELETE /banks/1
   # DELETE /banks/1.json
   def destroy
-    @bank.destroy
-    respond_to do |format|
-      format.html { redirect_to configuration_banks_path, notice: 'Bank was successfully destroyed.' }
-      format.json { head :no_content }
+    begin
+      @bank.destroy
+      redirect_to configuration_banks_path
+      flash[:notice] = 'Bank was successfully destroyed'
+    rescue ActiveRecord::DeleteRestrictionError => error
+      redirect_to configuration_banks_path
+      flash[:error] = "#{error}"
     end
   end
 

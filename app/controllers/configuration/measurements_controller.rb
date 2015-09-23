@@ -1,10 +1,10 @@
-class MeasurementsController < ApplicationController
+class Configuration::MeasurementsController < ApplicationController
   before_action :set_measurement, only: [:show, :edit, :update, :destroy]
 
   # GET /measurements
   # GET /measurements.json
   def index
-    @measurements = Measurement.all
+    @measurements = Measurement.all.order(name: :asc).page(params[:page])
   end
 
   # GET /measurements/1
@@ -28,7 +28,7 @@ class MeasurementsController < ApplicationController
 
     respond_to do |format|
       if @measurement.save
-        format.html { redirect_to @measurement, notice: 'Measurement was successfully created.' }
+        format.html { redirect_to [:configuration, @measurement], notice: 'Measurement was successfully created.' }
         format.json { render :show, status: :created, location: @measurement }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MeasurementsController < ApplicationController
   def update
     respond_to do |format|
       if @measurement.update(measurement_params)
-        format.html { redirect_to @measurement, notice: 'Measurement was successfully updated.' }
+        format.html { redirect_to [:configuration, @measurement], notice: 'Measurement was successfully updated.' }
         format.json { render :show, status: :ok, location: @measurement }
       else
         format.html { render :edit }
@@ -54,10 +54,13 @@ class MeasurementsController < ApplicationController
   # DELETE /measurements/1
   # DELETE /measurements/1.json
   def destroy
-    @measurement.destroy
-    respond_to do |format|
-      format.html { redirect_to measurements_url, notice: 'Measurement was successfully destroyed.' }
-      format.json { head :no_content }
+    begin
+      @measurement.destroy
+      redirect_to configuration_measurements_path
+      flash[:notice] = 'Measurement was successfully destroyed'
+    rescue ActiveRecord::DeleteRestrictionError => error
+      redirect_to configuration_measurements_path
+      flash[:error] = "#{error}"
     end
   end
 
@@ -69,6 +72,6 @@ class MeasurementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def measurement_params
-      params[:measurement]
+      params[:measurement].permit(:name)
     end
 end

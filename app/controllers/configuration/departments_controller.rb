@@ -54,10 +54,13 @@ class Configuration::DepartmentsController < ApplicationController
   # DELETE /departments/1
   # DELETE /departments/1.json
   def destroy
-    @department.destroy
-    respond_to do |format|
-      format.html { redirect_to configuration_departments_path, notice: 'Department was successfully destroyed.' }
-      format.json { head :no_content }
+    begin
+      @department.destroy
+      redirect_to configuration_departments_path
+      flash[:notice] = 'Department was successfully destroyed'
+    rescue ActiveRecord::DeleteRestrictionError => error
+      redirect_to configuration_departments_path
+      flash[:error] = "#{error}"
     end
   end
 

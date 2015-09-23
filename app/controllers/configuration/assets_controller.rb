@@ -1,10 +1,10 @@
-class AssetsController < ApplicationController
+class Configuration::AssetsController < ApplicationController
   before_action :set_asset, only: [:show, :edit, :update, :destroy]
 
   # GET /assets
   # GET /assets.json
   def index
-    @assets = Asset.all
+    @assets = Asset.all.order(name: :asc).page(params[:page])
   end
 
   # GET /assets/1
@@ -28,7 +28,7 @@ class AssetsController < ApplicationController
 
     respond_to do |format|
       if @asset.save
-        format.html { redirect_to @asset, notice: 'Asset was successfully created.' }
+        format.html { redirect_to [:configuration, @asset], notice: 'Asset was successfully created.' }
         format.json { render :show, status: :created, location: @asset }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class AssetsController < ApplicationController
   def update
     respond_to do |format|
       if @asset.update(asset_params)
-        format.html { redirect_to @asset, notice: 'Asset was successfully updated.' }
+        format.html { redirect_to [:configuration, @asset], notice: 'Asset was successfully updated.' }
         format.json { render :show, status: :ok, location: @asset }
       else
         format.html { render :edit }
@@ -54,10 +54,13 @@ class AssetsController < ApplicationController
   # DELETE /assets/1
   # DELETE /assets/1.json
   def destroy
-    @asset.destroy
-    respond_to do |format|
-      format.html { redirect_to assets_url, notice: 'Asset was successfully destroyed.' }
-      format.json { head :no_content }
+    begin
+      @asset.destroy
+      redirect_to configuration_assets_path
+      flash[:notice] = 'Asset successfully destroyed'
+    rescue ActiveRecord::DeleteRestrictionError => error
+      redirect_to configuration_assets_path
+      flash[:error] = "#{error}"
     end
   end
 
@@ -69,6 +72,6 @@ class AssetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def asset_params
-      params[:asset]
+      params[:asset].permit(:name)
     end
 end

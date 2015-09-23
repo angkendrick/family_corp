@@ -54,10 +54,13 @@ class Configuration::CustomersController < ApplicationController
   # DELETE /customers/1
   # DELETE /customers/1.json
   def destroy
-    @customer.destroy
-    respond_to do |format|
-      format.html { redirect_to configuration_customers_path, notice: 'Customer was successfully destroyed.' }
-      format.json { head :no_content }
+    begin
+      @customer.destroy
+      redirect_to configuration_customers_path
+      flash[:notice] = 'Supplier was successfully destroyed'
+    rescue ActiveRecord::DeleteRestrictionError => error
+      redirect_to configuration_customers_path
+      flash[:error] = "#{error}"
     end
   end
 

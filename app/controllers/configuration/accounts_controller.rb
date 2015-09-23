@@ -54,10 +54,13 @@ class Configuration::AccountsController < ApplicationController
   # DELETE /accounts/1
   # DELETE /accounts/1.json
   def destroy
-    @account.destroy
-    respond_to do |format|
-      format.html { redirect_to configuration_accounts_path, notice: 'Account was successfully destroyed.' }
-      format.json { head :no_content }
+    begin
+      @account.destroy
+      redirect_to configuration_accounts_path
+      flash[:notice] = 'Account was successfully destroyed.'
+    rescue ActiveRecord::DeleteRestrictionError => error
+      redirect_to configuration_accounts_path
+      flash[:error] = "#{error}"
     end
   end
 
