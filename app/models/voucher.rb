@@ -2,7 +2,7 @@ class Voucher < ActiveRecord::Base
 
   belongs_to :account
   belongs_to :bank
-  belongs_to :customer
+  belongs_to :customer, :class_name => '::Customer'
   belongs_to :department
   belongs_to :company
   has_many :particulars
