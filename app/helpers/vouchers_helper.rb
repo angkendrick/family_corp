@@ -8,6 +8,8 @@ module VouchersHelper
     if total
       total = sprintf '%.2f', total
       number_with_delimiter(total, delimiter: :',')
+    else
+      0.00
     end
   end
 
