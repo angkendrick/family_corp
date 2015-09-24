@@ -6,6 +6,7 @@ class VoucherPdf < Prawn::Document
     super(:page_size => [600, 400], :font_size => 8)
     @voucher = voucher
     @view = view
+    @size = 8
     heading
     payment
     particulars
@@ -42,7 +43,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 28, y - 35], :width => 82, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.created_at.strftime('%m/%d/%Y'), :valign => :center, :align => :center, :size => 10
+      text_box @voucher.created_at.strftime('%m/%d/%Y'), :valign => :center, :align => :center, :size => @size
     end
 
     # Purchase Order and value
@@ -51,7 +52,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 28, y - 50], :width => 30, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.purchase_order.to_s, :valign => :center, :align => :center, :size => 10
+      text_box @voucher.purchase_order.to_s, :valign => :center, :align => :center, :size => @size
     end
 
     # Confirmation Number and value
@@ -60,7 +61,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 80, y - 50], :width => 30, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.confirmation_number.to_s, :valign => :center, :align => :center, :size => 10
+      text_box @voucher.confirmation_number.to_s, :valign => :center, :align => :center, :size => @size
     end
   end
 
@@ -74,7 +75,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 42, y], :width => 358, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.customer.name, :valign => :center, :align => :center, :size => 10
+      text_box @voucher.customer.name, :valign => :center, :align => :center, :size => @size
     end
 
     # Bank and value
@@ -83,7 +84,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 42, y - 15], :width => 100, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.bank.name, :valign => :center, :align => :center, :size => 10
+      text_box @voucher.bank.name, :valign => :center, :align => :center, :size => @size
     end
 
     # Cheque and value
@@ -92,7 +93,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 180, y - 15], :width => 100, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.cheque_number.to_s, :valign => :center, :align => :center, :size => 10
+      text_box @voucher.cheque_number.to_s, :valign => :center, :align => :center, :size => @size
     end
 
     # Cheque date and value
@@ -101,7 +102,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 330, y - 15], :width => 70, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.cheque_date.strftime('%m/%d/%Y'), :valign => :center, :align => :center, :size => 10
+      text_box @voucher.cheque_date.strftime('%m/%d/%Y'), :valign => :center, :align => :center, :size => @size
     end
 
     # Account title and value
@@ -110,7 +111,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 85, y - 30], :width => 120, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.account.title, :valign => :center, :align => :center, :size => 10
+      text_box @voucher.account.title, :valign => :center, :align => :center, :size => @size
     end
 
     # Department name and value
@@ -119,7 +120,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 280, y - 30], :width => 120, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.account.title, :valign => :center, :align => :center, :size => 10
+      text_box @voucher.account.title, :valign => :center, :align => :center, :size => @size
     end
   end
 
@@ -132,7 +133,7 @@ class VoucherPdf < Prawn::Document
     @voucher.particulars.map do |particular|
       list << particular.description
       list += "\n"
-      list_amount << number_with_delimiter(particular.amount).to_s
+      list_amount << number_with_delimiter('%.2f' % particular.amount).to_s
       list_amount+= "\n"
     end
 
@@ -154,13 +155,13 @@ class VoucherPdf < Prawn::Document
     # Particulars and Amount values
     bounding_box([x, y - 15], :width => 400, :height => 225) do
       transparent(1) {stroke_bounds}
-      text_box list, :valign => :center, :align => :left, :size => 10
+      text_box list, :valign => :center, :align => :left, :size => @size
     end
     bounding_box([x + 400, y - 15], :width => 170, :height => 225) do
       transparent(1) {stroke_bounds}
     end
     bounding_box([x + 400, y - 15], :width => 130, :height => 225) do
-      text_box list_amount, :valign => :center, :align => :right, :size => 10
+      text_box list_amount, :valign => :center, :align => :right, :size => @size
     end
 
     # Total amount
@@ -185,7 +186,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 75, y], :width => 130, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.user.first_name, :valign => :center, :align => :center, :size => 10
+      text_box @voucher.user.first_name, :valign => :center, :align => :center, :size => @size
     end
 
     # Checked by and value
@@ -212,7 +213,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 290, y], :width => 280, :height => 30) do
       transparent(1) {stroke_bounds}
-      text_box sum_hash_words(@voucher.particulars), :valign => :center, :align => :center, :size => 10
+      text_box "#{sum_hash_words(@voucher.particulars)} ONLY", :valign => :center, :align => :center, :size => 10
     end
 
     # Received by
