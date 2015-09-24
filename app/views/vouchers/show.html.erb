@@ -101,7 +101,7 @@
   <% @voucher.particulars.each do |particular| %>
     <tr>
       <td><%= particular.description %></td>
-      <td><%= particular.amount ? '%.2f' % particular.amount : 0.00 %></td>
+      <td><%= particular.amount ? number_with_delimiter('%.2f' % particular.amount) : 0.00 %></td>
     </tr>
   <% end %>
 </table>
