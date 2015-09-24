@@ -3,12 +3,15 @@ module VouchersHelper
   include ActionView::Helpers::NumberHelper
 
   def sum_hash(hash)
-    total = sprintf '%.2f', hash.inject(0) {|sum, hash| sum + hash[:amount] if hash[:amount]}
-    number_with_delimiter(total, delimiter: :',')
+    total = hash.inject(0) {|sum, hash| sum + hash[:amount]}
+    if total
+      total = sprintf '%.2f', total
+      number_with_delimiter(total, delimiter: :',')
+    end
   end
 
   def sum_hash_words(hash)
-    total = hash.inject(0) {|sum, hash| sum + hash[:amount] if hash[:amount]}
+    total = hash.inject(0) {|sum, hash| sum + hash[:amount]}
     total.humanize
   end
 
