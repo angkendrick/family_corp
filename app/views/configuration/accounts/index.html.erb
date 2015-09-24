@@ -1,0 +1,29 @@
+<h1>Listing Accounts</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @accounts.each do |account| %>
+      <tr>
+        <td><%= account.title %></td>
+        <td><%= link_to 'Show', [:configuration, account] %></td>
+        <td><%= link_to 'Edit', edit_configuration_account_path(account) %></td>
+        <td><%= link_to 'Destroy', [:configuration, account], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= paginate @accounts %>
+
+<br>
+
+<%= link_to 'New Account', new_configuration_account_path %>

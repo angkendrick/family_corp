@@ -11,13 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922050222) do
+ActiveRecord::Schema.define(version: 20150923231518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
     t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "assets", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -46,12 +52,46 @@ ActiveRecord::Schema.define(version: 20150922050222) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "measurements", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "particulars", force: :cascade do |t|
     t.integer  "voucher_id"
     t.string   "description"
     t.decimal  "amount"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "requisition_particulars", force: :cascade do |t|
+    t.integer  "requisition_id"
+    t.integer  "quantity"
+    t.integer  "measurement_id"
+    t.string   "description"
+    t.decimal  "amount"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "requisitions", force: :cascade do |t|
+    t.integer  "purchase_order"
+    t.integer  "confirmation_number"
+    t.integer  "customer_id"
+    t.integer  "user_id"
+    t.integer  "asset_id"
+    t.integer  "department_id"
+    t.integer  "company_id"
+    t.integer  "approved"
+    t.boolean  "locked",                         default: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.string   "requisition_image_file_name"
+    t.string   "requisition_image_content_type"
+    t.integer  "requisition_image_file_size"
+    t.datetime "requisition_image_updated_at"
   end
 
   create_table "users", force: :cascade do |t|

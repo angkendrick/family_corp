@@ -1,0 +1,39 @@
+<h1>Listing Requisitions</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>PO</th>
+      <th>CN</th>
+      <th>Supplier</th>
+      <th>Usage</th>
+      <th>Department</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @requisitions.each do |requisition| %>
+    <tr>
+        <td><%= requisition.created_at %></td>
+        <td><%= requisition.purchase_order %></td>
+        <td><%= requisition.confirmation_number %></td>
+        <td><%= requisition.customer.name %></td>
+        <td><%= requisition.asset.name %></td>
+        <td><%= requisition.department.name %></td>
+        <td><%= link_to 'Show', company_requisition_path(@company, requisition) %></td>
+        <td><%= link_to 'Edit', edit_company_requisition_path(@company, requisition) %></td>
+        <td><%= link_to 'Destroy', company_requisition_path(@company, requisition), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= paginate @requisitions %>
+
+<br>
+
+<%= link_to 'New Requisition', new_company_requisition_path %>

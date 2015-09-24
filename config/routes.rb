@@ -8,12 +8,17 @@ Rails.application.routes.draw do
         get 'search'
       end
     end
+    resources :requisitions
   end
 
-  resources :departments
-  resources :accounts
-  resources :customers
-  resources :banks
+  namespace :configuration do
+    resources :departments
+    resources :accounts
+    resources :customers
+    resources :banks
+    resources :measurements
+    resources :assets
+  end
 
   root 'vouchers#redirect'
   # The priority is based upon order of creation: first created -> highest priority.

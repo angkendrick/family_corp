@@ -1,0 +1,28 @@
+<h1>Listing Assets</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @assets.each do |asset| %>
+      <tr>
+        <td><%= asset.name %></td>
+        <td><%= link_to 'Show', [:configuration, asset] %></td>
+        <td><%= link_to 'Edit', edit_configuration_asset_path(asset) %></td>
+        <td><%= link_to 'Destroy', [:configuration, asset], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+<%= paginate @assets %>
+
+<br>
+
+<%= link_to 'New Asset', new_configuration_asset_path %>

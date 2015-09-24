@@ -27,10 +27,12 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Setup <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><%= link_to 'Account', accounts_path %></li>
-            <li><%= link_to 'Bank', banks_path %></li>
-            <li><%= link_to 'Department', departments_path %></li>
-            <li><%= link_to 'Supplier', customers_path %></li>
+            <li><%= link_to 'Asset', configuration_assets_path %></li>
+            <li><%= link_to 'Account', configuration_accounts_path %></li>
+            <li><%= link_to 'Bank', configuration_banks_path %></li>
+            <li><%= link_to 'Department', configuration_departments_path %></li>
+            <li><%= link_to 'Measurement', configuration_measurements_path %></li>
+            <li><%= link_to 'Supplier', configuration_customers_path %></li>
             <li><hr></li>
             <li><%= link_to 'Company', companies_path %></li>
           </ul>

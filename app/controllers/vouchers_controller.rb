@@ -71,6 +71,7 @@ class VouchersController < ApplicationController
     end
   end
 
+  # current homepage
   def redirect
     redirect_to '/companies/1/vouchers'
   end
