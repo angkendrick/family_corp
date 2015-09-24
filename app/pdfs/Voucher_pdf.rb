@@ -33,7 +33,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 28, y - 20], :width => 82, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box '1', :valign => :center, :align => :center, :size => 10
+      text_box '', :valign => :center, :align => :center, :size => 10
     end
 
     # Voucher date and value
