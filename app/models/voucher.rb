@@ -9,6 +9,7 @@ class Voucher < ActiveRecord::Base
   belongs_to :user
 
   accepts_nested_attributes_for :particulars, allow_destroy: true
+  validates_associated :particulars
 
 
   searchkick
