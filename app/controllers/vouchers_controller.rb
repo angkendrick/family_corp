@@ -53,8 +53,6 @@ class VouchersController < ApplicationController
         render :edit
       end
     else
-      @voucher = @company.vouchers.new(voucher_params)
-      @voucher.id = params[:id]
       flash[:error] = 'Please include an AN before adding payment information'
       redirect_to edit_company_voucher_path(@company, @voucher)
       #render :edit
