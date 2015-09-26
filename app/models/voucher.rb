@@ -33,7 +33,7 @@ class Voucher < ActiveRecord::Base
   has_attached_file :cheque_image, :default_url => "default.jpg",
                     storage: :dropbox,
                     :dropbox_credentials => Rails.root.join("config/dropbox.yml"),
-                    :path => "voucher/#{Time.now.strftime("%m%d%Y")}/:filename"
+                    :path => 'voucher/:filename'
   validates_attachment_content_type :cheque_image, :content_type => /\Aimage\/.*\Z/
 
   protected
@@ -41,7 +41,7 @@ class Voucher < ActiveRecord::Base
   def rename_upload_image
     if self.cheque_image.dirty?
       extension = File.extname(cheque_image_file_name).downcase
-      self.cheque_image.instance_write :file_name, "voucher_#{Time.now.strftime("%m%d%Y-%H%M%S")}#{extension}"
+      self.cheque_image.instance_write :file_name, "#{Time.now.strftime("%m-%d-%Y")}/voucher_#{Time.now.strftime("%m%d%Y-%H%M%S")}#{extension}"
     end
   end
 
