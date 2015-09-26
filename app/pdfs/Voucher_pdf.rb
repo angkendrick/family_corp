@@ -18,7 +18,7 @@ class VoucherPdf < Prawn::Document
     y = 350
 
     # Company
-    bounding_box([x - 460, y + 5], :width => 110, :height => 20) do
+    bounding_box([x - 460, y + 5], :width => 400, :height => 20) do
       text_box @voucher.company.name, :valign => :center, :align => :left, :size => 14
     end
 
