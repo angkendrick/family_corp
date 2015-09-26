@@ -59,8 +59,8 @@ class Configuration::BanksController < ApplicationController
       redirect_to configuration_banks_path
       flash[:notice] = 'Bank was successfully destroyed'
     rescue ActiveRecord::DeleteRestrictionError => error
-      redirect_to configuration_banks_path
       flash[:error] = "#{error}"
+      redirect_to configuration_banks_path
     end
   end
 

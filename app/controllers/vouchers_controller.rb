@@ -1,10 +1,10 @@
 class VouchersController < ApplicationController
   before_action :set_voucher, only: [:show, :edit, :update, :destroy]
-  before_action :load_company, only: [:create, :index, :edit, :show, :new, :search]
+  before_action :load_company, only: [:create, :index, :edit, :show, :new, :search, :update]
 
 
   def index
-    @vouchers = @company.vouchers.all.order(id: :asc).page(params[:page])
+    @vouchers = @company.vouchers.all.order(id: :desc).page(params[:page])
   end
 
   def show
@@ -30,29 +30,36 @@ class VouchersController < ApplicationController
   end
 
   def create
-    @voucher = @company.vouchers.new(voucher_params)
-
-    respond_to do |format|
-      if @voucher.save
-        format.html { redirect_to company_vouchers_path, notice: 'Voucher was successfully created.' }
-        format.json { render :show, status: :created, location: @voucher }
-      else
-        format.html { render :new }
-        format.json { render json: @voucher.errors, status: :unprocessable_entity }
-      end
+    puts 'hi'
+    if check_approval_number(params)
+      @voucher = @company.vouchers.new(voucher_params)
+        if @voucher.save
+          redirect_to company_vouchers_path, notice: 'Voucher was successfully created.'
+        else
+          render :new
+        end
+    else
+      @voucher = @company.vouchers.new(voucher_params)
+      flash[:error] = 'Please include an AN before adding payment information'
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
+    if check_approval_number(params)
       if @voucher.update(voucher_params)
-        format.html { redirect_to company_voucher_path, notice: 'Voucher was successfully updated.' }
-        format.json { render :show, status: :ok, location: @voucher }
+        redirect_to company_voucher_path, notice: 'Voucher was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @voucher.errors, status: :unprocessable_entity }
+        render :edit
       end
+    else
+      @voucher = @company.vouchers.new(voucher_params)
+      @voucher.id = params[:id]
+      flash[:error] = 'Please include an AN before adding payment information'
+      redirect_to edit_company_voucher_path(@company, @voucher)
+      #render :edit
     end
+
   end
 
   def destroy
@@ -83,10 +90,23 @@ class VouchersController < ApplicationController
     end
 
     def voucher_params
-      params.require(:voucher).permit(:customer_id, :bank_id, :purchase_order, :confirmation_number, :description, :cheque_date, :cheque_number, :account_id, :department_id, :company_id, :user_id, :cheque_image, particulars_attributes: [:id, :voucher_id, :description, :amount, :_destroy])
+      params.require(:voucher).permit(:customer_id, :bank_id, :purchase_order, :confirmation_number, :description, :cheque_date, :cheque_number, :account_id, :department_id, :company_id, :user_id, :approval_number, :cheque_image, particulars_attributes: [:id, :voucher_id, :description, :amount, :_destroy])
     end
 
     def load_company
       @company = Company.find(params[:company_id])
     end
+
+    def check_approval_number(params)
+      if (params[:voucher][:approval_number].empty?) && (!params[:voucher][:cheque_number].empty? || !params[:voucher][:bank_id].empty? || !params[:voucher]['cheque_date(1i)'].empty? || !params[:voucher]['cheque_date(2i)'].empty? || !params[:voucher]['cheque_date(3i)'].empty?)
+        false # approval_number empty and has payment information
+      else
+        true
+      # elsif !params[:voucher][:approval_number].empty?
+      #   true # approval_number has information
+      # elsif params[:voucher][:approval_number].empty?
+      #   true # approval_number is empty
+      end
+    end
+
 end

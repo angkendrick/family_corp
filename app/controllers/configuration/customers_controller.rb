@@ -59,8 +59,8 @@ class Configuration::CustomersController < ApplicationController
       redirect_to configuration_customers_path
       flash[:notice] = 'Supplier was successfully destroyed'
     rescue ActiveRecord::DeleteRestrictionError => error
-      redirect_to configuration_customers_path
       flash[:error] = "#{error}"
+      redirect_to configuration_customers_path
     end
   end
 

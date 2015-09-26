@@ -59,8 +59,8 @@ class Configuration::DepartmentsController < ApplicationController
       redirect_to configuration_departments_path
       flash[:notice] = 'Department was successfully destroyed'
     rescue ActiveRecord::DeleteRestrictionError => error
-      redirect_to configuration_departments_path
       flash[:error] = "#{error}"
+      redirect_to configuration_departments_path
     end
   end
 

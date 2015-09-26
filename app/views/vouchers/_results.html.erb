@@ -25,6 +25,7 @@
     <th>Bank</th>
     <th>Ck #</th>
     <th>Ck Date</th>
+    <th>AN</th>
     <th>PO #</th>
     <th>CN</th>
     <th>Account</th>
@@ -39,9 +40,10 @@
   <% @vouchers.each do |voucher| %>
     <tr>
       <td><%= voucher.customer.name %></td>
-      <td><%= voucher.bank.name %></td>
+      <td><%= voucher.bank.name if voucher.bank %></td>
       <td><%= voucher.cheque_number %></td>
       <td><%= voucher.cheque_date %></td>
+      <td><%= voucher.approval_number %></td>
       <td><%= voucher.purchase_order %></td>
       <td><%= voucher.confirmation_number %></td>
       <td><%= voucher.account.title %></td>

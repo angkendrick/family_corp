@@ -59,8 +59,8 @@ class Configuration::AccountsController < ApplicationController
       redirect_to configuration_accounts_path
       flash[:notice] = 'Account was successfully destroyed.'
     rescue ActiveRecord::DeleteRestrictionError => error
-      redirect_to configuration_accounts_path
       flash[:error] = "#{error}"
+      redirect_to configuration_accounts_path
     end
   end
 

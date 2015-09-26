@@ -59,8 +59,8 @@ class Configuration::AssetsController < ApplicationController
       redirect_to configuration_assets_path
       flash[:notice] = 'Asset successfully destroyed'
     rescue ActiveRecord::DeleteRestrictionError => error
-      redirect_to configuration_assets_path
       flash[:error] = "#{error}"
+      redirect_to configuration_assets_path
     end
   end
 

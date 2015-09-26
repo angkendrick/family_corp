@@ -32,9 +32,18 @@ class VoucherPdf < Prawn::Document
     bounding_box([x, y - 20], :width => 100, :height => 15) do
       text_box 'NO.', :valign => :center, :align => :left, :size => 10
     end
-    bounding_box([x + 28, y - 20], :width => 82, :height => 15) do
+    bounding_box([x + 28, y - 20], :width => 30, :height => 15) do
       transparent(1) {stroke_bounds}
       text_box '', :valign => :center, :align => :center, :size => 10
+    end
+
+    # AN and value
+    bounding_box([x + 60, y - 20], :width => 100, :height => 15) do
+      text_box 'AN.', :valign => :center, :align => :left, :size => 10
+    end
+    bounding_box([x + 80, y - 20], :width => 30, :height => 15) do
+      transparent(1) {stroke_bounds}
+      text_box @voucher.approval_number.to_s, :valign => :center, :align => :center, :size => @size
     end
 
     # Voucher date and value
@@ -84,7 +93,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 42, y - 15], :width => 100, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.bank.name, :valign => :center, :align => :center, :size => @size
+      text_box "#{@voucher.bank.name if @voucher.bank}", :valign => :center, :align => :center, :size => @size
     end
 
     # Cheque and value
@@ -102,7 +111,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 330, y - 15], :width => 70, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.cheque_date.strftime('%m/%d/%Y'), :valign => :center, :align => :center, :size => @size
+      text_box "#{@voucher.cheque_date.strftime('%m/%d/%Y') if @voucher.cheque_date}", :valign => :center, :align => :center, :size => @size
     end
 
     # Account title and value

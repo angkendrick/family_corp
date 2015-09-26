@@ -27,7 +27,7 @@
         <div class="col-md-4">
            Paid To:
         </div>
-        <div class="col-md-6">
+        <div class="col-md-7">
           <%= @voucher.customer.name %>
         </div>
       </div>
@@ -38,7 +38,7 @@
         <div class="col-md-4">
           Account:
         </div>
-        <div class="col-md-6">
+        <div class="col-md-7">
           <%= @voucher.account.title %>
         </div>
       </div>
@@ -49,7 +49,7 @@
         <div class="col-md-4">
           Department
         </div>
-        <div class="col-md-6">
+        <div class="col-md-7">
           <%= @voucher.department.name %>
         </div>
       </div>
@@ -60,8 +60,8 @@
         <div class="col-md-4">
           Bank:
         </div>
-        <div class="col-md-6">
-          <%= @voucher.bank.name %>
+        <div class="col-md-7">
+          <%= @voucher.bank.name if @voucher.bank %>
         </div>
       </div>
 
@@ -72,13 +72,16 @@
 
 
   <div class="col-md-3 col-md-offset-3">
-      PO# <%= @voucher.purchase_order %><br>
-      CN# <%= @voucher.confirmation_number %><br>
-      CK# <%= @voucher.cheque_number %><br>
-      CK Date: <%= @voucher.cheque_date %>
+    PO# <%= @voucher.purchase_order %><br>
+    CN# <%= @voucher.confirmation_number %><br>
+    AN# <%= @voucher.approval_number %><br>
+    CK# <%= @voucher.cheque_number %><br>
+    CK Date: <%= @voucher.cheque_date %>
   </div>
 
 </div>
+
+<br>
 
 <div class="row">
   <div class="col-md-8">

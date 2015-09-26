@@ -59,8 +59,8 @@ class Configuration::MeasurementsController < ApplicationController
       redirect_to configuration_measurements_path
       flash[:notice] = 'Measurement was successfully destroyed'
     rescue ActiveRecord::DeleteRestrictionError => error
-      redirect_to configuration_measurements_path
       flash[:error] = "#{error}"
+      redirect_to configuration_measurements_path
     end
   end
 
