@@ -41,7 +41,7 @@ class Voucher < ActiveRecord::Base
   def rename_upload_image
     if self.cheque_image.dirty?
       extension = File.extname(cheque_image_file_name).downcase
-      self.cheque_image.instance_write :file_name, "#{Time.now.strftime("%m-%d-%Y")}/voucher_#{Time.now.strftime("%m%d%Y-%H%M%S")}#{extension}"
+      self.cheque_image.instance_write :file_name, "#{Time.zone.now.strftime("%m-%d-%Y")}/voucher_#{Time.zone.now.strftime("%m%d%Y-%H%M%S")}#{extension}"
     end
   end
 
