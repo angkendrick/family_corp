@@ -7,6 +7,8 @@ class Voucher < ActiveRecord::Base
   belongs_to :company
   has_many :particulars, dependent: :destroy
   belongs_to :user
+  belongs_to :approved_by, class_name: 'User', foreign_key: 'approved_by_id'
+  belongs_to :checked_by, class_name: 'User', foreign_key: 'checked_by_id'
 
   accepts_nested_attributes_for :particulars, allow_destroy: true
   validates_associated :particulars
