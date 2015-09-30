@@ -15,7 +15,7 @@ module VouchersHelper
 
   def sum_hash_words(hash)
     total = hash.inject(0) {|sum, hash| sum + hash[:amount]}
-    decimal = (total.modulo(1).round(2)).to_s
+    decimal = (sprintf '%.2f', total).to_s
     2.times { decimal[0] = '' }
     "#{total.humanize} & #{decimal}/100"
   end
