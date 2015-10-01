@@ -10,7 +10,7 @@
     <%= link_to edit_company_voucher_path(@company, @voucher), class: 'btn btn-primary', title: 'Edit', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
       <span class="glyphicon glyphicon-pencil"></span>
     <% end %> &nbsp;
-    <%= link_to "#{generate_pdf_url}", class: 'btn btn-primary', title: 'Print Voucher', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+    <%= link_to "#{generate_pdf_url}",  class: 'btn btn-primary', title: 'Print Voucher', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
       <span class="glyphicon glyphicon-print"></span>
     <% end %>
     </h1>

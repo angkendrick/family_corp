@@ -2,6 +2,7 @@
 
   <div class="row">
     <div class="col-md-10">
+
       <div class="row">
         <div class="col-md-1">
           <%= link_to_remove_association 'remove', f, :class => "label label-danger" %>
@@ -12,7 +13,7 @@
 
         <div class="form-group">
           <div class="col-md-1">
-            <%= f.label :Quantity %>
+            <%= f.label :Quantity, class: 'text-left' %>
           </div>
           <div class="col-md-1">
             <%= f.number_field :quantity, class: 'form-control' %>
@@ -37,25 +38,27 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-10">
-              <div class="row">
+      </div>
 
-                <div class="form-group">
-                <div class="col-md-1">
-                  <%= f.label :description %>
-                </div>
-                <div class="col-md-6">
-                  <%= f.text_field :description, class: 'form-control' %>
-                </div>
+      <div class="row">
+        <!--<div class="col-md-10">-->
+            <!--<div class="row">-->
+
+              <div class="form-group">
+              <div class="col-md-1">
+                <%= f.label :description %>
+              </div>
+              <div class="col-md-7">
+                <%= f.text_field :description, class: 'form-control' %>
               </div>
             </div>
-          </div>
-        </div>
-
-
-
+          <!--</div>-->
+        <!--</div>-->
       </div>
+
+
+
+
     </div>
   </div>
 

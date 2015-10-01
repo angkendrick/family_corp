@@ -17,15 +17,16 @@ class Requisition < ActiveRecord::Base
   has_attached_file :requisition_image, :default_url => "default.jpg",
                     storage: :dropbox,
                     :dropbox_credentials => Rails.root.join("config/dropbox.yml"),
-                    :path => "requisition/#{Time.now.strftime("%m%d%Y")}/:filename"
+                    :path => 'requisition/:filename'
   validates_attachment_content_type :requisition_image, :content_type => /\Aimage\/.*\Z/
 
   protected
 
   def rename_upload_image
     if self.requisition_image.dirty?
+      Time.zone = 'Singapore'
       extension = File.extname(requisition_image_file_name).downcase
-      self.requisition_image.instance_write :file_name, "requisition_#{Time.now.strftime("%m%d%Y-%H%M%S")}#{extension}"
+      self.requisition_image.instance_write :file_name, "#{Time.zone.now.strftime("%m-%d-%Y")}/requisition_#{Time.zone.now.strftime("%m%d%Y-%H%M%S")}#{extension}"
     end
   end
 

@@ -1,6 +1,6 @@
 class RequisitionsController < ApplicationController
   before_action :set_requisition, only: [:show, :edit, :update, :destroy]
-  before_action :load_company, only: [:create, :index, :edit, :show, :new, :search]
+  before_action :load_company, only: [:create, :index, :edit, :show, :new, :update, :search]
 
 
   def index
@@ -34,7 +34,7 @@ class RequisitionsController < ApplicationController
   def update
     respond_to do |format|
       if @requisition.update(requisition_params)
-        format.html { redirect_to @requisition, notice: 'Requisition was successfully updated.' }
+        format.html { redirect_to company_requisition_path(@company, @requisition), notice: 'Requisition was successfully updated.' }
         format.json { render :show, status: :ok, location: @requisition }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class RequisitionsController < ApplicationController
     end
 
     def requisition_params
-      params[:requisition].permit(:purchase_order, :confirmation_number, :customer_id, :user_id, :asset_id, :department_id, :company_id, :requisition_image, requisition_particulars_attributes: [:id, :quantity, :measurement_id, :requisition_id, :description, :amount, :_destroy])
+      params[:requisition].permit(:purchase_order, :confirmation_number, :customer_id, :user_id, :asset_id, :department_id, :company_id, :approved_by_id, :requisition_image, requisition_particulars_attributes: [:id, :quantity, :measurement_id, :requisition_id, :description, :amount, :_destroy])
     end
 
     def load_company
