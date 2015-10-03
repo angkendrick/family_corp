@@ -17,8 +17,10 @@
           <span class="glyphicon glyphicon-eye-open"></span>
         <% end %>
       <% else %>
-        <%= link_to company_requisition_path(@company, @requisition, :requisition => {:approved_by_id => current_user.id}, :create_po => 1), method: :put, data: {confirm: 'Are you sure? This action will create a Purchase Order and cannot be undone'}, class: 'btn btn-danger', title: 'Approve', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-          <span class="glyphicon glyphicon-check"></span>
+        <% if current_user.role = 'approve' %>
+          <%= link_to company_requisition_path(@company, @requisition, :requisition => {:approved_by_id => current_user.id}, :create_po => 1), method: :put, data: {confirm: 'Are you sure? This action will create a Purchase Order and cannot be undone'}, class: 'btn btn-danger', title: 'Approve', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+            <span class="glyphicon glyphicon-check"></span>
+        <% end %>
         <% end %>
       <% end %>
     </h1>

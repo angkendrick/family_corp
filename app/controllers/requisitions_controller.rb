@@ -1,6 +1,7 @@
 class RequisitionsController < ApplicationController
   before_action :set_requisition, only: [:show, :edit, :update, :destroy]
   before_action :load_company, only: [:create, :index, :edit, :show, :new, :update, :search, :destroy]
+  before_action :prevent_edit, only: [:edit]
 
 
   def index
@@ -28,13 +29,9 @@ class RequisitionsController < ApplicationController
 
   def update
     @notice = ''
+
     if params['create_po']
-      if po = PurchaseOrder.create(customer_id: @requisition.customer_id, user_id: current_user.id, asset_id: @requisition.asset_id, department_id: @requisition.department_id, company_id: @requisition.company_id, requisition_requested_by_id: @requisition.requested_by_id)
-        particulars = RequisitionParticular.where(requisition_id: @requisition.id)
-        particulars.update_all(purchase_order_id: po.id)
-        @requisition.update(purchase_order_id: po.id)
-        @notice << 'Purchase Order was successfully created, '
-      end
+      approve_requisition
     end
 
     if @requisition.update(requisition_params)
@@ -45,25 +42,47 @@ class RequisitionsController < ApplicationController
     end
   end
 
-  def destroy
-    @requisition.destroy
-    respond_to do |format|
-      format.html { redirect_to company_requisitions_path(@company), notice: 'Requisition was successfully destroyed.' }
-      format.json { head :no_content }
+def destroy
+  @requisition.destroy
+  respond_to do |format|
+    format.html { redirect_to company_requisitions_path(@company), notice: 'Requisition was successfully destroyed.' }
+    format.json { head :no_content }
+  end
+end
+
+private
+
+  def set_requisition
+    @requisition = Requisition.find(params[:id])
+  end
+
+  def requisition_params
+    params[:requisition].permit(:purchase_orders, :confirmation_number, :customer_id, :user_id, :asset_id, :department_id, :company_id, :approved_by_id, :requested_by_id, :purchase_order_id, :requisition_image, requisition_particulars_attributes: [:id, :quantity, :measurement_id, :requisition_id, :description, :amount, :_destroy])
+  end
+
+  def load_company
+    @company = Company.find(params[:company_id])
+  end
+
+  def prevent_edit
+    if @requisition.approved_by_id
+      redirect_to company_requisitions_path(@company)
     end
   end
 
-  private
-
-    def set_requisition
-      @requisition = Requisition.find(params[:id])
+  def approve_requisition
+    if current_user.role == 'approve'
+      if po = PurchaseOrder.create(customer_id: @requisition.customer_id, user_id: current_user.id, asset_id: @requisition.asset_id, department_id: @requisition.department_id, company_id: @requisition.company_id, requisition_requested_by_id: @requisition.requested_by_id)
+        particulars = RequisitionParticular.where(requisition_id: @requisition.id)
+        particulars.update_all(purchase_order_id: po.id)
+        @requisition.update(purchase_order_id: po.id)
+        @notice << 'Purchase Order was successfully created, '
+      end
+    else
+      redirect_to company_requisition_path(@company, @requisition), error: 'Insufficient administrative privileges'
     end
+  end
 
-    def requisition_params
-      params[:requisition].permit(:purchase_orders, :confirmation_number, :customer_id, :user_id, :asset_id, :department_id, :company_id, :approved_by_id, :requested_by_id, :purchase_order_id, :requisition_image, requisition_particulars_attributes: [:id, :quantity, :measurement_id, :requisition_id, :description, :amount, :_destroy])
-    end
 
-    def load_company
-      @company = Company.find(params[:company_id])
-    end
+
 end
