@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930234123) do
+ActiveRecord::Schema.define(version: 20151002234626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,14 +66,29 @@ ActiveRecord::Schema.define(version: 20150930234123) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "purchase_orders", force: :cascade do |t|
+    t.integer  "purchase_order"
+    t.integer  "confirmation_number"
+    t.integer  "customer_id"
+    t.integer  "user_id"
+    t.integer  "asset_id"
+    t.integer  "department_id"
+    t.integer  "company_id"
+    t.integer  "requisition_requested_by_id"
+    t.integer  "requisition_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "requisition_particulars", force: :cascade do |t|
     t.integer  "requisition_id"
     t.integer  "quantity"
     t.integer  "measurement_id"
     t.string   "description"
     t.decimal  "amount"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "purchase_order_id"
   end
 
   create_table "requisitions", force: :cascade do |t|
@@ -92,6 +107,7 @@ ActiveRecord::Schema.define(version: 20150930234123) do
     t.string   "requisition_image_content_type"
     t.integer  "requisition_image_file_size"
     t.datetime "requisition_image_updated_at"
+    t.integer  "requested_by_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -110,6 +126,7 @@ ActiveRecord::Schema.define(version: 20150930234123) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.boolean  "admin",                  default: false
+    t.string   "role"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

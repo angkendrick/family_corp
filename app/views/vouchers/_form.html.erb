@@ -69,7 +69,7 @@
 
     <div class="col-md-3 col-md-offset-3">
       <div class="form-group form-inline">
-        <%= f.label 'PO#' %> <%= f.number_field :purchase_order, class: 'form-control' %>
+        <%= f.label 'PO#' %> <%= f.number_field :purchase_orders, class: 'form-control' %>
       </div>
       <div class="form-group form-inline">
         <%= f.label 'CN' %> &nbsp; <%= f.number_field :confirmation_number, class: "form-control" %>
@@ -137,7 +137,7 @@
             <%= f.label :'Checked by' %>
           </div>
           <div class="col-md-5">
-            <%= f.collection_select(:checked_by_id, User.all, :id, :first_name, {:include_blank => 'Select One'} ,{class: "form-control"}) %>
+            <%= f.collection_select(:checked_by_id, User.where(role: 'check'), :id, :first_name, {:include_blank => 'Select One'} ,{class: "form-control"}) %>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@
             <%= f.label :'Approved by' %>
           </div>
           <div class="col-md-5">
-            <%= f.collection_select(:approved_by_id, User.all, :id, :first_name, {:include_blank => 'Select One'} ,{class: "form-control"}) %>
+            <%= f.collection_select(:approved_by_id, User.where(role: 'approve'), :id, :first_name, {:include_blank => 'Select One'} ,{class: "form-control"}) %>
           </div>
         </div>
       </div>

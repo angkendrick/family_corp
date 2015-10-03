@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
     end
     resources :requisitions
+    resources :purchase_orders, only: [:index, :show]
   end
 
   namespace :configuration do
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
   end
 
   root 'vouchers#redirect'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

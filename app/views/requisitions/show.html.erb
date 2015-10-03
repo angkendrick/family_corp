@@ -10,7 +10,7 @@
       <%= link_to edit_company_requisition_path(@company, @requisition), class: 'btn btn-primary', title: 'Edit', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
         <span class="glyphicon glyphicon-pencil"></span>
       <% end %> &nbsp;
-      <%= link_to company_requisition_path(@company, @requisition, :requisition => {:approved_by_id => current_user.id}), method: :put, data: {confirm: 'Are you sure? This action will create a Purchase Order and cannot be undone'}, class: 'btn btn-danger', title: 'Approve', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+      <%= link_to company_requisition_path(@company, @requisition, :requisition => {:approved_by_id => current_user.id}, :create_po => 1), method: :put, data: {confirm: 'Are you sure? This action will create a Purchase Order and cannot be undone'}, class: 'btn btn-danger', title: 'Approve', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
         <span class="glyphicon glyphicon-check"></span>
       <% end %>
     </h1>
@@ -24,7 +24,7 @@
 
     <div class="row">
       <div class="col-md-4">
-        Purchase Order
+        Purchase Order #
       </div>
       <div class="col-md-6">
         <%= @requisition.purchase_order %>
@@ -35,7 +35,7 @@
 
     <div class="row">
       <div class="col-md-4">
-        Confirmation Number
+        Confirmation #
       </div>
       <div class="col-md-6">
         <%= @requisition.confirmation_number %>
@@ -70,6 +70,15 @@
       </div>
       <div class="col-md-6">
         <%= @requisition.department.name %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        Requested by
+      </div>
+      <div class="col-md-6">
+        <%= @requisition.requested_by.first_name %>
       </div>
     </div>
 
