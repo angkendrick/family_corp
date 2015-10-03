@@ -1,6 +1,7 @@
 class PurchaseOrdersController < ApplicationController
 
   before_action :load_company, only: [:index, :show]
+  before_action :set_purchase_order, only: [:show]
 
   def index
     @purchase_orders = @company.purchase_orders.all.order(id: :asc).page(params[:page])

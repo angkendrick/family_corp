@@ -4,7 +4,7 @@ class RequisitionsController < ApplicationController
 
 
   def index
-    @requisitions = @company.requisitions.all.order(id: :asc).page(params[:page])
+    @requisitions = @company.requisitions.all.order(approved_by_id: :desc, created_at: :desc).page(params[:page])
   end
 
   def show
@@ -32,6 +32,7 @@ class RequisitionsController < ApplicationController
       if po = PurchaseOrder.create(customer_id: @requisition.customer_id, user_id: current_user.id, asset_id: @requisition.asset_id, department_id: @requisition.department_id, company_id: @requisition.company_id, requisition_requested_by_id: @requisition.requested_by_id)
         particulars = RequisitionParticular.where(requisition_id: @requisition.id)
         particulars.update_all(purchase_order_id: po.id)
+        @requisition.update(purchase_order_id: po.id)
         @notice << 'Purchase Order was successfully created, '
       end
     end
@@ -59,7 +60,7 @@ class RequisitionsController < ApplicationController
     end
 
     def requisition_params
-      params[:requisition].permit(:purchase_orders, :confirmation_number, :customer_id, :user_id, :asset_id, :department_id, :company_id, :approved_by_id, :requested_by_id, :requisition_image, requisition_particulars_attributes: [:id, :quantity, :measurement_id, :requisition_id, :description, :amount, :_destroy])
+      params[:requisition].permit(:purchase_orders, :confirmation_number, :customer_id, :user_id, :asset_id, :department_id, :company_id, :approved_by_id, :requested_by_id, :purchase_order_id, :requisition_image, requisition_particulars_attributes: [:id, :quantity, :measurement_id, :requisition_id, :description, :amount, :_destroy])
     end
 
     def load_company

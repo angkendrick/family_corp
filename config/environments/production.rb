@@ -98,4 +98,6 @@ Rails.application.configure do
       password: ENV['GMAIL_PASSWORD']
   }
 
+  config.time_zone = 'Singapore'
+
 end

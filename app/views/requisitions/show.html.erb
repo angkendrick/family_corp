@@ -7,11 +7,19 @@
       <%= link_to company_requisitions_path, class: 'btn btn-primary', title: 'Back', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
         <span class="glyphicon glyphicon-step-backward"></span>
       <% end %> &nbsp;
-      <%= link_to edit_company_requisition_path(@company, @requisition), class: 'btn btn-primary', title: 'Edit', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-        <span class="glyphicon glyphicon-pencil"></span>
-      <% end %> &nbsp;
-      <%= link_to company_requisition_path(@company, @requisition, :requisition => {:approved_by_id => current_user.id}, :create_po => 1), method: :put, data: {confirm: 'Are you sure? This action will create a Purchase Order and cannot be undone'}, class: 'btn btn-danger', title: 'Approve', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-        <span class="glyphicon glyphicon-check"></span>
+      <% unless approved %>
+        <%= link_to edit_company_requisition_path(@company, @requisition), class: 'btn btn-primary', title: 'Edit', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+        <% end %> &nbsp;
+      <% end %>
+      <% if approved %>
+        <%= link_to company_purchase_order_path(@company, @requisition.purchase_order_id), class: 'btn btn-success', title: 'View Purchase Order', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+          <span class="glyphicon glyphicon-eye-open"></span>
+        <% end %>
+      <% else %>
+        <%= link_to company_requisition_path(@company, @requisition, :requisition => {:approved_by_id => current_user.id}, :create_po => 1), method: :put, data: {confirm: 'Are you sure? This action will create a Purchase Order and cannot be undone'}, class: 'btn btn-danger', title: 'Approve', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+          <span class="glyphicon glyphicon-check"></span>
+        <% end %>
       <% end %>
     </h1>
   </div>
@@ -21,6 +29,20 @@
 
   <div class="col-md-4">
 
+    <div class="row">
+      <div class="col-md-4">
+        Status :
+      </div>
+      <div class="col-md-6">
+        <% if approved %>
+        Purchase Order Available
+        <% else %>
+        Pending Approval
+        <% end %>
+      </div>
+    </div>
+
+    <br>
 
     <div class="row">
       <div class="col-md-4">
@@ -30,8 +52,6 @@
         <%= @requisition.purchase_order %>
       </div>
     </div>
-
-
 
     <div class="row">
       <div class="col-md-4">
@@ -99,5 +119,7 @@
 
 </div>
 
-<%= link_to 'Edit', edit_company_requisition_path(@company, @requisition) %> |
+<% unless approved %>
+  <%= link_to 'Edit', edit_company_requisition_path(@company, @requisition) %> |
+<% end %>
 <%= link_to 'Back', company_requisitions_path %>

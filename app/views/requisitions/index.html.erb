@@ -1,4 +1,14 @@
-<h1>Listing Requisitions</h1>
+<br>
+
+<div class="row">
+  <div class="col-md-4">
+    <%= link_to new_company_requisition_path, class: 'btn btn-primary' do %>
+      <i>New Requisition <span class="glyphicon glyphicon-fire"></span></i>
+    <% end %>
+  </div>
+</div>
+
+<br>
 
 <table class="table table-bordered">
   <thead>
@@ -22,9 +32,16 @@
         <td><%= requisition.customer.name %></td>
         <td><%= requisition.asset.name %></td>
         <td><%= requisition.department.name %></td>
-        <td><%= link_to 'Show', company_requisition_path(@company, requisition) %></td>
-        <td><%= link_to 'Edit', edit_company_requisition_path(@company, requisition) %></td>
-        <td><%= link_to 'Destroy', company_requisition_path(@company, requisition), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td align="center"><%= link_to company_requisition_path(@company, requisition), class: "btn btn-success btn-xs", title: 'View', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %><span class="glyphicon glyphicon-zoom-in"></span><% end %></td>
+
+      <% if requisition.approved_by_id %>
+        <td align="center"><%= link_to edit_company_requisition_path(@company, requisition), class: "btn btn-warning btn-xs disabled", title: 'Edit', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %><span class="glyphicon glyphicon-pencil"></span><% end %></td>
+      <% else %>
+        <td align="center"><%= link_to edit_company_requisition_path(@company, requisition), class: "btn btn-warning btn-xs", title: 'Edit', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %><span class="glyphicon glyphicon-pencil"></span><% end %></td>
+      <% end %>
+
+
+      <td align="center"><%= link_to company_requisition_path(@company, requisition), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs", title: 'Delete', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %><span class="glyphicon glyphicon-remove"></span><% end %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,6 +51,3 @@
 
 <%= paginate @requisitions %>
 
-<br>
-
-<%= link_to 'New Requisition', new_company_requisition_path %>
