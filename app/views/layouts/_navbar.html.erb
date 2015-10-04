@@ -5,9 +5,26 @@
         <span class="glyphicon glyphicon-globe"></span>
       </a>
     </div>
+    <ul class="nav navbar-nav">
+      <li class="menu-item dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Company: <strong><%= current_company %></strong> <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <% company_list.map do |company| %>
+            <li class="menu-item dropdown dropdown-submenu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= company.name %></a>
+              <ul class="dropdown-menu">
+                <li class="menu-item"><%= link_to 'requisitions', company_requisitions_path(company) %></li>
+                <li class="menu-item"><%= link_to 'purchase orders', company_purchase_orders_path(company) %></li>
+                <li class="menu-item"><%= link_to 'vouchers', company_vouchers_path(company) %></li>
+              </ul>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= current_user.first_name.capitalize %> <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <% if user_signed_in? %>
             <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
@@ -37,24 +54,6 @@
             <li><%= link_to 'Company', companies_path %></li>
           </ul>
         </li>
-      </ul>
-      <ul class="nav navbar-nav">
-        <li class="menu-item dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Company: <strong><%= current_company %></strong> <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <% company_list.map do |company| %>
-              <li class="menu-item dropdown dropdown-submenu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= company.name %></a>
-                <ul class="dropdown-menu">
-                  <li class="menu-item"><%= link_to 'requisitions', company_requisitions_path(company) %></li>
-                  <li class="menu-item"><%= link_to 'purchase orders', company_purchase_orders_path(company) %></li>
-                  <li class="menu-item"><%= link_to 'vouchers', company_vouchers_path(company) %></li>
-                </ul>
-              </li>
-            <% end %>
-          </ul>
-        </li>
-        <!--<p class="navbar-text navbar-right"><span class="glyphicon glyphicon-home"></span></p>-->
       </ul>
     <% end %>
   </div>
