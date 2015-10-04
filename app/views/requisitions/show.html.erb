@@ -106,20 +106,33 @@
 
     <h3>Particulars</h3>
     <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Qty</th>
+          <th>Unit</th>
+          <th>Description</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
       <% @requisition.requisition_particulars.each do |particular| %>
         <tr>
           <td><%= particular.quantity %></td>
           <td><%= particular.measurement.name %></td>
           <td><%= particular.description %></td>
           <td><%= particular.amount ? number_with_delimiter('%.2f' % particular.amount) : 0.00 %></td>
+          <td><%= total(particular) %></td>
         </tr>
       <% end %>
     </table>
 
+    Total: <%= grand_total(@requisition) %>
 
   </div>
 
 </div>
+
+<br>
 
 <% unless approved %>
   <%= link_to 'Edit', edit_company_requisition_path(@company, @requisition) %> |

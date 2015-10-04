@@ -20,9 +20,9 @@ module VouchersHelper
     "#{total.humanize} & #{decimal}/100"
   end
 
-  def generate_pdf_url
-    url = request.original_url
-    url += '.pdf'
-  end
+  # def generate_pdf_url
+  #   url = request.original_url
+  #   url += '.pdf'
+  # end
 
 end

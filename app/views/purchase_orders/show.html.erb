@@ -7,7 +7,7 @@
       <%= link_to company_purchase_orders_path, class: 'btn btn-primary', title: 'Back', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
         <span class="glyphicon glyphicon-step-backward"></span>
       <% end %> &nbsp;
-      <%= link_to '#',  class: 'btn btn-primary', title: 'Print Voucher', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+      <%= link_to "#{generate_pdf_url}",  class: 'btn btn-primary', title: 'Print Purchase Order', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
         <span class="glyphicon glyphicon-print"></span>
       <% end %>
     </h1>
@@ -20,7 +20,7 @@
 
     <div class="row">
       <div class="col-md-4">
-        Paid To:
+        PO #
       </div>
       <div class="col-md-7">
         <%= @purchase_order.purchase_order %>
@@ -83,15 +83,27 @@
 
     <h3>Particulars</h3>
     <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Qty</th>
+        <th>Unit</th>
+        <th>Description</th>
+        <th>Unit Price</th>
+        <th>Total</th>
+      </tr>
+      </thead>
       <% @purchase_order.requisition_particulars.each do |particular| %>
         <tr>
           <td><%= particular.quantity %></td>
           <td><%= particular.measurement.name %></td>
           <td><%= particular.description %></td>
           <td><%= particular.amount ? number_with_delimiter('%.2f' % particular.amount) : 0.00 %></td>
+          <td><%= total(particular) %></td>
         </tr>
       <% end %>
     </table>
+
+    Total: <%= grand_total(@purchase_order) %>
 
   </div>
 </div>

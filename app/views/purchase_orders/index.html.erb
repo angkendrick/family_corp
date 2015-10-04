@@ -16,7 +16,7 @@
   <tbody>
   <% @purchase_orders.each do |po| %>
     <tr>
-      <td><%= po.created_at %></td>
+      <td><%= po.created_at.strftime('%b %d, %Y') if po.created_at %></td>
       <td><%= po.purchase_order %></td>
       <td><%= po.confirmation_number %></td>
       <td><%= po.customer.name %></td>
