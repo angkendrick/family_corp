@@ -24,7 +24,7 @@
             <%= f.label 'Supplier' %>
           </div>
           <div class="col-md-6">
-            <%= f.collection_select(:customer_id, Customer.all, :id, :name, {}, {class: "form-control"}) %>
+            <%= f.collection_select(:customer_id, Customer.all.order(name: :asc), :id, :name, {}, {class: "form-control"}) %>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
             <%= f.label :account_id %>
           </div>
           <div class="col-md-6">
-            <%= f.collection_select(:account_id, Account.all, :id, :title, {} ,{class: "form-control"}) %>
+            <%= f.collection_select(:account_id, Account.all.order(title: :asc), :id, :title, {} ,{class: "form-control"}) %>
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@
             <%= f.label :department_id %>
           </div>
           <div class="col-md-6">
-            <%= f.collection_select(:department_id, Department.all, :id, :name, {}, {class: "form-control"}) %>
+            <%= f.collection_select(:department_id, Department.all.order(name: :asc), :id, :name, {}, {class: "form-control"}) %>
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@
             <%= f.label :bank_id %>
           </div>
           <div class="col-md-6">
-            <%= f.collection_select(:bank_id, Bank.all, :id, :name, {:include_blank => 'Select One'} ,{class: "form-control"}) %>
+            <%= f.collection_select(:bank_id, Bank.all.order(name: :asc), :id, :name, {:include_blank => 'Select One'} ,{class: "form-control"}) %>
           </div>
         </div>
       </div>
@@ -137,7 +137,7 @@
             <%= f.label :'Checked by' %>
           </div>
           <div class="col-md-5">
-            <%= f.collection_select(:checked_by_id, User.where(role: 'check'), :id, :first_name, {:include_blank => 'Select One'} ,{class: "form-control"}) %>
+            <%= f.collection_select(:checked_by_id, User.where(role: 'check').order(first_name: :asc), :id, :first_name, {:include_blank => 'Select One'} ,{class: "form-control"}) %>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@
             <%= f.label :'Approved by' %>
           </div>
           <div class="col-md-5">
-            <%= f.collection_select(:approved_by_id, User.where(role: 'approve'), :id, :first_name, {:include_blank => 'Select One'} ,{class: "form-control"}) %>
+            <%= f.collection_select(:approved_by_id, User.where(role: 'approve').order(first_name: :asc), :id, :first_name, {:include_blank => 'Select One'} ,{class: "form-control"}) %>
           </div>
         </div>
       </div>

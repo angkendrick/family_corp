@@ -24,7 +24,7 @@
               <%= f.label :unit %>
             </div>
             <div class="col-md-2">
-              <%= f.collection_select(:measurement_id, Measurement.all, :id, :name, {} ,{class: "form-control"}) %>
+              <%= f.collection_select(:measurement_id, Measurement.all.order(name: :asc), :id, :name, {} ,{class: "form-control"}) %>
             </div>
           </div>
 

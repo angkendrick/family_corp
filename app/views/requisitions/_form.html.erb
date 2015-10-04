@@ -24,7 +24,7 @@
             <%= f.label :'Supplier' %>
           </div>
           <div class="col-md-6">
-            <%= f.collection_select(:customer_id, Customer.all, :id, :name, {}, {class: "form-control"}) %>
+            <%= f.collection_select(:customer_id, Customer.all.order(name: :asc), :id, :name, {}, {class: "form-control"}) %>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
             <%= f.label :asset_id %>
           </div>
           <div class="col-md-6">
-            <%= f.collection_select(:asset_id, Asset.all, :id, :name, {} ,{class: "form-control"}) %>
+            <%= f.collection_select(:asset_id, Asset.all.order(name: :asc), :id, :name, {} ,{class: "form-control"}) %>
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@
             <%= f.label :department_id %>
           </div>
           <div class="col-md-6">
-            <%= f.collection_select(:department_id, Department.all, :id, :name, {} ,{class: "form-control"}) %>
+            <%= f.collection_select(:department_id, Department.all.order(name: :asc), :id, :name, {} ,{class: "form-control"}) %>
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@
             <%= f.label :requested_by %>
           </div>
           <div class="col-md-6">
-            <%= f.collection_select(:requested_by_id, User.all, :id, :first_name, {} ,{class: "form-control"}) %>
+            <%= f.collection_select(:requested_by_id, User.all.order(first_name: :asc), :id, :first_name, {} ,{class: "form-control"}) %>
           </div>
         </div>
       </div>
