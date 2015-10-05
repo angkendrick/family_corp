@@ -23,7 +23,7 @@
         PO #
       </div>
       <div class="col-md-7">
-        <%= @purchase_order.purchase_order %>
+        <%= "#{@purchase_order.company.code} - #{@purchase_order.purchase_order}" %>
       </div>
     </div>
 
@@ -32,7 +32,16 @@
         Confirmation #
       </div>
       <div class="col-md-7">
-        <%= @purchase_order.confirmation_number %>
+        <%= "#{@purchase_order.company.code} - #{@purchase_order.confirmation_number}" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        Requisition #
+      </div>
+      <div class="col-md-7">
+        <%= "#{@purchase_order.company.code} - #{@purchase_order.requisition_number}" %>
       </div>
     </div>
 

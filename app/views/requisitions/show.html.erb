@@ -48,10 +48,20 @@
 
     <div class="row">
       <div class="col-md-4">
+        Requisition #
+      </div>
+      <div class="col-md-6">
+        <%= "#{@requisition.company.code} - #{@requisition.requisition_number}" %>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-4">
         Purchase Order #
       </div>
       <div class="col-md-6">
-        <%= @requisition.purchase_order %>
+        <%= "#{@requisition.company.code} - #{@requisition.purchase_order}" %>
       </div>
     </div>
 
@@ -60,7 +70,7 @@
         Confirmation #
       </div>
       <div class="col-md-6">
-        <%= @requisition.confirmation_number %>
+        <%= "#{@requisition.company.code} - #{@requisition.confirmation_number}" %>
       </div>
     </div>
 

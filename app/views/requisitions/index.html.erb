@@ -29,8 +29,8 @@
     <tr>
         <td><%= requisition.created_at.strftime('%b %d, %Y') if requisition.created_at %></td>
         <td><%= "#{requisition.company.code} - #{requisition.requisition_number}" %></td>
-        <td><%= requisition.purchase_order %></td>
-        <td><%= requisition.confirmation_number %></td>
+        <% if requisition.purchase_order %><td><%= "#{requisition.company.code} - #{requisition.purchase_order}" %></td><% else %><td></td><% end %>
+        <% if requisition.confirmation_number %><td><%= "#{requisition.company.code} - #{requisition.confirmation_number}" %></td><% else %><td></td><% end %>
         <td><%= requisition.customer.name %></td>
         <td><%= requisition.asset.name %></td>
         <td><%= requisition.department.name %></td>
