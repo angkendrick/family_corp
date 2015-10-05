@@ -3,7 +3,6 @@ class RequisitionsController < ApplicationController
   before_action :load_company, only: [:create, :index, :edit, :show, :new, :update, :search, :destroy]
   before_action :prevent_edit, only: [:edit]
 
-
   def index
     @requisitions = @company.requisitions.all.order(approved_by_id: :desc, created_at: :desc).page(params[:page])
   end
@@ -19,7 +18,9 @@ class RequisitionsController < ApplicationController
   end
 
   def create
+    create_requisition_number
     @requisition = @company.requisitions.new(requisition_params)
+    @requisition.requisition_number = @new_number
     if @requisition.save
       redirect_to company_requisitions_path, notice: 'Requisition was successfully created.'
     else
@@ -83,6 +84,10 @@ private
     end
   end
 
+  def create_requisition_number
+    requisition_number = Requisition.last.requisition_number
+    requisition_number.nil? ? @new_number = 1 : @new_number = requisition_number + 1
+  end
 
 
 end
