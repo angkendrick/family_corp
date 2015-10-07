@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005183751) do
+ActiveRecord::Schema.define(version: 20151007021616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,19 @@ ActiveRecord::Schema.define(version: 20151005183751) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "requisition_number"
+    t.integer  "approved_by_id"
+    t.string   "po_image1_file_name"
+    t.string   "po_image1_content_type"
+    t.integer  "po_image1_file_size"
+    t.datetime "po_image1_updated_at"
+    t.string   "po_image2_file_name"
+    t.string   "po_image2_content_type"
+    t.integer  "po_image2_file_size"
+    t.datetime "po_image2_updated_at"
+    t.string   "po_image3_file_name"
+    t.string   "po_image3_content_type"
+    t.integer  "po_image3_file_size"
+    t.datetime "po_image3_updated_at"
   end
 
   create_table "requisition_particulars", force: :cascade do |t|

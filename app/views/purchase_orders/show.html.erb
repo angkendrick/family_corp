@@ -116,3 +116,63 @@
 
   </div>
 </div>
+
+<br>
+
+<%= form_for [@company, @purchase_order] do |f| %>
+  <% if @purchase_order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@purchase_order.errors.count, "error") %> prohibited this purchase order from being saved:</h2>
+
+      <ul>
+        <% @purchase_order.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <strong>Attach Scanned Delivery Receipt A</strong>
+        <%= f.file_field :po_image1, class: "form-control" %>
+      </div>
+      <% if @purchase_order.po_image1_file_size%>
+        <span>File Size: <%= number_with_delimiter(@purchase_order.po_image1_file_size, :delimiter => ',') %> bytes</span>
+      <% end %>
+      <%= image_tag @purchase_order.po_image1.url, class: 'img-responsive' %>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <strong>Attach Scanned Delivery Receipt B</strong>
+        <%= f.file_field :po_image2, class: "form-control" %>
+      </div>
+      <% if @purchase_order.po_image2_file_size%>
+        <span>File Size: <%= number_with_delimiter(@purchase_order.po_image2_file_size, :delimiter => ',') %> bytes</span>
+      <% end %>
+      <%= image_tag @purchase_order.po_image2.url, class: 'img-responsive' %>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <strong>Attach Scanned Delivery Receipt C</strong>
+        <%= f.file_field :po_image3, class: "form-control" %>
+      </div>
+      <% if @purchase_order.po_image3_file_size%>
+        <span>File Size: <%= number_with_delimiter(@purchase_order.po_image3_file_size, :delimiter => ',') %> bytes</span>
+      <% end %>
+      <%= image_tag @purchase_order.po_image3.url, class: 'img-responsive' %>
+    </div>
+
+  </div>
+
+  <br>
+
+  <div class="actions">
+    <%= f.submit 'Update', class: 'btn btn-primary' %>
+  </div>
+
+<% end %>

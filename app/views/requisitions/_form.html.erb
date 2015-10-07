@@ -90,6 +90,10 @@
     </div>
   </div>
 
+  <%= image_tag @requisition.requisition_image.url, class: 'img-rounded' %>
+
+  <br>
+
   <div class="actions">
     <%= f.submit 'Save', class: 'btn btn-primary' %>
   </div>

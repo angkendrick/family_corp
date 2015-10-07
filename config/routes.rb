@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       end
     end
     resources :requisitions
-    resources :purchase_orders, only: [:index, :show]
+    resources :purchase_orders, only: [:index, :show, :update]
   end
 
   namespace :configuration do

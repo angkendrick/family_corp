@@ -30,7 +30,6 @@ class VouchersController < ApplicationController
   end
 
   def create
-    puts 'hi'
     if check_approval_number(params)
       @voucher = @company.vouchers.new(voucher_params)
         if @voucher.save
