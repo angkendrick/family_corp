@@ -23,54 +23,54 @@ class VoucherPdf < Prawn::Document
     end
 
     # Voucher heading
-    bounding_box([x, y], :width => 110, :height => 20) do
+    bounding_box([x - 20, y], :width => 130, :height => 20) do
       transparent(1) {stroke_bounds}
       text_box 'VOUCHER', :valign => :center, :align => :center
     end
 
     # Voucher number and value
-    bounding_box([x, y - 20], :width => 100, :height => 15) do
+    bounding_box([x - 20, y - 20], :width => 130, :height => 15) do
       text_box 'NO.', :valign => :center, :align => :left, :size => 10
     end
-    bounding_box([x + 28, y - 20], :width => 30, :height => 15) do
+    bounding_box([x + 8, y - 20], :width => 40, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box '', :valign => :center, :align => :center, :size => 10
+      text_box "#{@voucher.company.code}-#{@voucher.voucher_number}", :valign => :center, :align => :center, :size => 10
     end
 
     # AN and value
-    bounding_box([x + 60, y - 20], :width => 100, :height => 15) do
+    bounding_box([x + 50, y - 20], :width => 100, :height => 15) do
       text_box 'AN.', :valign => :center, :align => :left, :size => 10
     end
-    bounding_box([x + 80, y - 20], :width => 30, :height => 15) do
+    bounding_box([x + 68, y - 20], :width => 42, :height => 15) do
       transparent(1) {stroke_bounds}
       text_box @voucher.approval_number.to_s, :valign => :center, :align => :center, :size => @size
     end
 
     # Voucher date and value
-    bounding_box([x, y - 35], :width => 100, :height => 15) do
+    bounding_box([x - 20, y - 35], :width => 130, :height => 15) do
       text_box 'DATE', :valign => :center, :align => :left, :size => 10
     end
-    bounding_box([x + 28, y - 35], :width => 82, :height => 15) do
+    bounding_box([x + 8, y - 35], :width => 102, :height => 15) do
       transparent(1) {stroke_bounds}
       text_box @voucher.created_at.strftime('%m/%d/%Y'), :valign => :center, :align => :center, :size => @size
     end
 
     # Purchase Order and value
-    bounding_box([x, y - 50], :width => 100, :height => 15) do
+    bounding_box([x - 20, y - 50], :width => 130, :height => 15) do
       text_box 'PO.', :valign => :center, :align => :left, :size => 10
     end
-    bounding_box([x + 28, y - 50], :width => 30, :height => 15) do
+    bounding_box([x + 8, y - 50], :width => 40, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.purchase_order.to_s, :valign => :center, :align => :center, :size => @size
+      text_box "#{@voucher.company.code}-#{@voucher.purchase_order_number}", :valign => :center, :align => :center, :size => @size
     end
 
     # Confirmation Number and value
-    bounding_box([x + 60, y - 50], :width => 100, :height => 15) do
+    bounding_box([x + 50, y - 50], :width => 100, :height => 15) do
       text_box 'CN.', :valign => :center, :align => :left, :size => 10
     end
-    bounding_box([x + 80, y - 50], :width => 30, :height => 15) do
+    bounding_box([x + 68, y - 50], :width => 42, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.confirmation_number.to_s, :valign => :center, :align => :center, :size => @size
+      text_box "#{@voucher.company.code}-#{@voucher.confirmation_number}", :valign => :center, :align => :center, :size => @size
     end
   end
 
@@ -120,7 +120,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 85, y - 30], :width => 120, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.account.title, :valign => :center, :align => :center, :size => @size
+      text_box "#{@voucher.account.title if @voucher.account}", :valign => :center, :align => :center, :size => @size
     end
 
     # Department name and value
@@ -197,7 +197,7 @@ class VoucherPdf < Prawn::Document
     end
     bounding_box([x + 75, y], :width => 130, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box @voucher.user.first_name, :valign => :center, :align => :center, :size => @size
+      text_box "#{@voucher.user.first_name if @voucher.user}", :valign => :center, :align => :center, :size => @size
     end
 
     # Checked by and value

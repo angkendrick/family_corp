@@ -24,36 +24,36 @@ class POPdf < Prawn::Document
     end
 
     # PO heading
-    bounding_box([x, y], :width => 110, :height => 35) do
+    bounding_box([x - 20, y], :width => 130, :height => 35) do
       transparent(1) {stroke_bounds}
       text_box 'PURCHASE ORDER', :valign => :center, :align => :center
     end
 
     # PO date and value
-    bounding_box([x, y - 35], :width => 100, :height => 15) do
+    bounding_box([x - 20, y - 35], :width => 130, :height => 15) do
       text_box 'DATE', :valign => :center, :align => :left, :size => 10
     end
-    bounding_box([x + 28, y - 35], :width => 82, :height => 15) do
+    bounding_box([x + 8, y - 35], :width => 102, :height => 15) do
       transparent(1) {stroke_bounds}
       text_box @po.created_at.strftime('%m/%d/%Y'), :valign => :center, :align => :center, :size => @size
     end
 
     # Purchase Order and value
-    bounding_box([x, y - 50], :width => 100, :height => 15) do
+    bounding_box([x - 20, y - 50], :width => 130, :height => 15) do
       text_box 'NO.', :valign => :center, :align => :left, :size => 10
     end
-    bounding_box([x + 28, y - 50], :width => 30, :height => 15) do
+    bounding_box([x + 8, y - 50], :width => 40, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box '', :valign => :center, :align => :center, :size => @size
+      text_box "#{@po.company.code}-#{@po.purchase_order_number}", :valign => :center, :align => :center, :size => @size
     end
 
     # Confirmation Number and value
-    bounding_box([x + 60, y - 50], :width => 100, :height => 15) do
+    bounding_box([x + 50, y - 50], :width => 100, :height => 15) do
       text_box 'CN.', :valign => :center, :align => :left, :size => 10
     end
-    bounding_box([x + 80, y - 50], :width => 30, :height => 15) do
+    bounding_box([x + 68, y - 50], :width => 42, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box '', :valign => :center, :align => :center, :size => @size
+      text_box "#{@po.company.code}-#{@po.confirmation_number}", :valign => :center, :align => :center, :size => @size
     end
   end
 
@@ -61,7 +61,7 @@ class POPdf < Prawn::Document
     x = -20
     y = 330
 
-    # Paid to and value
+    # Supplier and value
     bounding_box([x, y], :width => 100, :height => 15) do
       text_box 'TO', :valign => :center, :align => :left, :size => 10
     end
@@ -72,7 +72,7 @@ class POPdf < Prawn::Document
 
     # Deliver To and value
     bounding_box([x, y - 15], :width => 100, :height => 15) do
-      text_box 'DELIVER', :valign => :center, :align => :left, :size => 10
+      text_box 'ADDRESS', :valign => :center, :align => :left, :size => 10
     end
     bounding_box([x + 50, y - 15], :width => 350, :height => 15) do
       transparent(1) {stroke_bounds}
@@ -85,7 +85,7 @@ class POPdf < Prawn::Document
     end
     bounding_box([x + 50, y - 30], :width => 45, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box '', :valign => :center, :align => :center, :size => @size
+      text_box "#{@po.company.code} - #{@po.requisition_number}", :valign => :center, :align => :center, :size => @size
     end
 
     # Asset and value
@@ -174,7 +174,7 @@ class POPdf < Prawn::Document
     end
     bounding_box([x + 75, y], :width => 130, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box '', :valign => :center, :align => :center, :size => @size
+      text_box "#{@po.approved_by.first_name} via system", :valign => :center, :align => :center, :size => @size
     end
 
     # Pickup by and value
@@ -192,7 +192,7 @@ class POPdf < Prawn::Document
     end
     bounding_box([x + 75, y - 30], :width => 130, :height => 15) do
       transparent(1) {stroke_bounds}
-      text_box '', :valign => :center, :align => :center, :size => @size
+      text_box @po.approved_by.first_name, :valign => :center, :align => :center, :size => @size
     end
 
   end

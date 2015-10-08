@@ -58,7 +58,7 @@ private
   end
 
   def requisition_params
-    params[:requisition].permit(:purchase_orders, :confirmation_number, :customer_id, :user_id, :asset_id, :department_id, :company_id, :approved_by_id, :requested_by_id, :purchase_order_id, :requisition_image, requisition_particulars_attributes: [:id, :quantity, :measurement_id, :requisition_id, :description, :amount, :_destroy])
+    params[:requisition].permit(:purchase_order_number, :confirmation_number, :customer_id, :user_id, :asset_id, :department_id, :company_id, :approved_by_id, :requested_by_id, :purchase_order_id, :requisition_image, requisition_particulars_attributes: [:id, :quantity, :measurement_id, :requisition_id, :description, :amount, :_destroy])
   end
 
   def load_company
@@ -73,15 +73,20 @@ private
 
   def approve_requisition
     if current_user.role == 'approve'
-      last_po = PurchaseOrder.last
-      last_po_number = last_po.purchase_order
-      last_confirmation_number = last_po.confirmation_number
-      last_po_number.nil? ? new_po_number = 1 : new_po_number = last_po_number + 1
-      last_confirmation_number.nil? ? new_confirmation_number = 1 : new_confirmation_number = last_confirmation_number + 1
-      if po = PurchaseOrder.create(customer_id: @requisition.customer_id, user_id: current_user.id, asset_id: @requisition.asset_id, department_id: @requisition.department_id, company_id: @requisition.company_id, requisition_requested_by_id: @requisition.requested_by_id, requisition_number: @requisition.requisition_number, purchase_order: new_po_number, confirmation_number: new_confirmation_number)
+      last_po = @company.purchase_orders.last
+      if last_po.nil?
+        new_po_number = 1
+        new_confirmation_number = 1
+      else
+        last_po_number = last_po.purchase_order_number
+        last_confirmation_number = last_po.confirmation_number
+        last_po_number.nil? ? new_po_number = 1 : new_po_number = last_po_number + 1
+        last_confirmation_number.nil? ? new_confirmation_number = 1 : new_confirmation_number = last_confirmation_number + 1
+      end
+      if po = PurchaseOrder.create(customer_id: @requisition.customer_id, user_id: current_user.id, asset_id: @requisition.asset_id, department_id: @requisition.department_id, company_id: @requisition.company_id, requisition_requested_by_id: @requisition.requested_by_id, requisition_number: @requisition.requisition_number, purchase_order_number: new_po_number, confirmation_number: new_confirmation_number)
         particulars = RequisitionParticular.where(requisition_id: @requisition.id)
         particulars.update_all(purchase_order_id: po.id)
-        @requisition.update(purchase_order_id: po.id, purchase_order: po.purchase_order, confirmation_number: po.confirmation_number)
+        @requisition.update(purchase_order_id: po.id, purchase_order_number: po.purchase_order_number, confirmation_number: po.confirmation_number)
         @notice << 'Purchase Order was successfully created, '
       end
     else

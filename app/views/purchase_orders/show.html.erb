@@ -9,6 +9,17 @@
       <% end %> &nbsp;
       <%= link_to "#{generate_pdf_url}",  class: 'btn btn-primary', title: 'Print Purchase Order', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
         <span class="glyphicon glyphicon-print"></span>
+      <% end %> &nbsp;
+      <% if approved_po %>
+        <%= link_to company_voucher_path(@company, @purchase_order.voucher_id), class: 'btn btn-success', title: 'View Voucher', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+          <span class="glyphicon glyphicon-eye-open"></span>
+        <% end %>
+      <% else %>
+        <% if current_user.role = 'approve' %>
+          <%= link_to company_purchase_order_path(@company, @purchase_order, :purchase_order => {:approved_by_id => current_user.id}, :create_voucher => 1), method: :put, data: {confirm: 'Are you sure? This action will create a Voucher and cannot be undone'}, class: 'btn btn-danger', title: 'Approve', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+            <span class="glyphicon glyphicon-check"></span>
+          <% end %>
+        <% end %>
       <% end %>
     </h1>
   </div>
@@ -23,7 +34,7 @@
         PO #
       </div>
       <div class="col-md-7">
-        <%= "#{@purchase_order.company.code} - #{@purchase_order.purchase_order}" %>
+        <%= "#{@purchase_order.company.code} - #{@purchase_order.purchase_order_number}" %>
       </div>
     </div>
 

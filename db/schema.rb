@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007021616) do
+ActiveRecord::Schema.define(version: 20151008011837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20151007021616) do
   end
 
   create_table "purchase_orders", force: :cascade do |t|
-    t.integer  "purchase_order"
+    t.integer  "purchase_order_number"
     t.integer  "confirmation_number"
     t.integer  "customer_id"
     t.integer  "user_id"
@@ -93,6 +93,8 @@ ActiveRecord::Schema.define(version: 20151007021616) do
     t.string   "po_image3_content_type"
     t.integer  "po_image3_file_size"
     t.datetime "po_image3_updated_at"
+    t.integer  "voucher_number"
+    t.integer  "voucher_id"
   end
 
   create_table "requisition_particulars", force: :cascade do |t|
@@ -107,7 +109,7 @@ ActiveRecord::Schema.define(version: 20151007021616) do
   end
 
   create_table "requisitions", force: :cascade do |t|
-    t.integer  "purchase_order"
+    t.integer  "purchase_order_number"
     t.integer  "confirmation_number"
     t.integer  "customer_id"
     t.integer  "user_id"
@@ -152,7 +154,7 @@ ActiveRecord::Schema.define(version: 20151007021616) do
   create_table "vouchers", force: :cascade do |t|
     t.integer  "customer_id"
     t.integer  "bank_id"
-    t.integer  "purchase_order"
+    t.integer  "purchase_order_number"
     t.integer  "confirmation_number"
     t.string   "description"
     t.integer  "cheque_number"
@@ -174,6 +176,7 @@ ActiveRecord::Schema.define(version: 20151007021616) do
     t.integer  "approval_number"
     t.integer  "checked_by_id"
     t.integer  "approved_by_id"
+    t.integer  "voucher_number"
   end
 
 end
