@@ -45,9 +45,11 @@ class RequisitionsController < ApplicationController
 
 def destroy
   @requisition.destroy
-  respond_to do |format|
-    format.html { redirect_to company_requisitions_path(@company), notice: 'Requisition was successfully destroyed.' }
-    format.json { head :no_content }
+  if @requisition.errors.nil?
+    redirect_to company_requisitions_path(@company), notice: 'Requisition was successfully destroyed.'
+  else
+    flash[:error] = 'Unable to delete Requisition with attached Purchase Order'
+    redirect_to company_requisitions_path(@company)
   end
 end
 
