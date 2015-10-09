@@ -15,7 +15,7 @@
           <span class="glyphicon glyphicon-eye-open"></span>
         <% end %>
       <% else %>
-        <% if current_user.role = 'approve' %>
+        <% if current_user.role == 'approve' %>
           <%= link_to company_purchase_order_path(@company, @purchase_order, :purchase_order => {:approved_by_id => current_user.id}, :create_voucher => 1), method: :put, data: {confirm: 'Are you sure? This action will create a Voucher and cannot be undone'}, class: 'btn btn-danger', title: 'Approve', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
             <span class="glyphicon glyphicon-check"></span>
           <% end %>
