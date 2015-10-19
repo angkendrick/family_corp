@@ -6,17 +6,16 @@
         <div class="row">
           <div class="col-md-2">
             <%= f.label :particular %>
-            <%= link_to_remove_association 'remove', f, :class => "label label-danger" %>
           </div>
           <div class="col-md-7">
-            <%= f.text_field :description, class: 'form-control' %>
+            <%= f.text_field :description, class: 'form-control', disabled: true %>
           </div>
           <div class="form-group">
             <div class="col-md-1">
               <%= f.label :amount %>
             </div>
             <div class="col-md-2">
-              <%= f.number_field :amount, class: 'form-control', step: 'any' %>
+              <%= f.number_field :amount, class: 'form-control', step: 'any', disabled: true %>
             </div>
           </div>
         </div>
