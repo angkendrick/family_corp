@@ -8,7 +8,7 @@ class Configuration::AccountsController < ApplicationController
   end
 
   # GET /accounts/1
-  # GET /accounts/1.json
+  # GET /accounts
   def show
   end
 

@@ -32,6 +32,7 @@ class VouchersController < ApplicationController
   def create
     if check_approval_number(params)
       @voucher = @company.vouchers.new(voucher_params)
+      @voucher.editable = true #can be edited when voucher is created manually
         if @voucher.save
           redirect_to company_vouchers_path, notice: 'Voucher was successfully created.'
         else
