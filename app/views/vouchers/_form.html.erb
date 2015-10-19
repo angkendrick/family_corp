@@ -14,6 +14,14 @@
     </div>
   <% end %>
 
+  <br>
+
+  <span class="label label-primary">
+    <%= @voucher.created_at.strftime('created : %B %d %Y ( %A )') %>
+  </span>
+
+  <br><br>
+
   <% if @voucher.editable %>
     <%= render :partial => 'vouchers/edit_views/edit', :locals => {:f => f} %>
   <% else %>

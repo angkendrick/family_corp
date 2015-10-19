@@ -50,6 +50,7 @@ class PurchaseOrdersController < ApplicationController
 
   def create_voucher
     if current_user.role == 'approve'
+      # generate the voucher number
       last_voucher = @company.vouchers.last
       if last_voucher.nil?
         new_voucher_number = 1
@@ -57,7 +58,8 @@ class PurchaseOrdersController < ApplicationController
         last_voucher_number = last_voucher.voucher_number
         last_voucher_number.nil? ? new_voucher_number = 1 : new_voucher_number = last_voucher_number + 1
       end
-      if voucher = @company.vouchers.create(customer_id: @purchase_order.customer_id, purchase_order_number: @purchase_order.purchase_order_number, confirmation_number: @purchase_order.confirmation_number, department_id: @purchase_order.department_id, approved_by_id: current_user.id, voucher_number: new_voucher_number)
+      # create the voucher and mark as editable = false
+      if voucher = @company.vouchers.create(customer_id: @purchase_order.customer_id, purchase_order_number: @purchase_order.purchase_order_number, confirmation_number: @purchase_order.confirmation_number, department_id: @purchase_order.department_id, approved_by_id: current_user.id, voucher_number: new_voucher_number, editable: false)
         @purchase_order.requisition_particulars.map do |particular|
           description = "#{particular.quantity} #{particular.measurement.name} #{particular.description} (#{particular.amount} ea.)"
           amount = (particular.quantity * particular.amount)

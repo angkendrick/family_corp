@@ -60,7 +60,7 @@ private
   end
 
   def requisition_params
-    params[:requisition].permit(:purchase_order_number, :confirmation_number, :customer_id, :user_id, :asset_id, :department_id, :company_id, :approved_by_id, :requested_by_id, :purchase_order_id, :requisition_image, requisition_particulars_attributes: [:id, :quantity, :measurement_id, :requisition_id, :description, :amount, :_destroy])
+    params[:requisition].permit(:purchase_order_number, :confirmation_number, :customer_id, :user_id, :asset_id, :department_id, :company_id, :approved_by_id, :requested_by_id, :purchase_order_id, :requisition_image, :request_approval, requisition_particulars_attributes: [:id, :quantity, :measurement_id, :requisition_id, :description, :amount, :_destroy])
   end
 
   def load_company

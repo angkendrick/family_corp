@@ -33,7 +33,20 @@
 
     <div class="row">
       <div class="col-md-4">
-        Status :
+        Request Status :
+      </div>
+      <div class="col-md-8">
+        <% if @requisition.request_approval == 0 %>
+          Not marked, request for approval has not been sent
+        <% else %>
+          Marked, request for approval has been sent
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        Approval Status :
       </div>
       <div class="col-md-6">
         <% if approved %>
@@ -43,6 +56,7 @@
         <% end %>
       </div>
     </div>
+
 
     <br>
 
