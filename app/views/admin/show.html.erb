@@ -5,7 +5,7 @@
   <h3><%= company.name %></h3>
   <hr>
 
-  <h4><span class="label label-default">Requisitions</span></h4>
+  <h4><a class="btn btn-info btn-xs disabled">Requisitions <span class="badge"><%= @requisitions.where(company_id: company).count %></span></a></h4>
   <% @requisitions.each do |requisition| %>
     <% if requisition.company_id == company.id %>
       <%= requisition.requisition_number %> -
@@ -15,7 +15,7 @@
     <% end %>
   <% end %>
 
-  <h4><span class="label label-default">Purchase Orders</span></h4>
+  <h4><a class="btn btn-warning btn-xs disabled">Purchase Orders <span class="badge"><%= @purchaseorders.where(company_id: company).count %></span></a></h4>
   <% @purchaseorders.each do |po| %>
     <% if po.company_id == company.id %>
       <%= po.purchase_order_number %> -
