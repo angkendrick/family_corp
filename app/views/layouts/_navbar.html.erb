@@ -28,6 +28,10 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= current_user.first_name.capitalize %> <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <% if user_signed_in? %>
+            <% if current_user.role == 'approve' %>
+              <li><%= link_to 'Pending Approvals', admin_pending_path %></li>
+              <hr>
+            <% end %>
             <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
             <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
             <% if admin? %>

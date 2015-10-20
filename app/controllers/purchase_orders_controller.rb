@@ -37,7 +37,7 @@ class PurchaseOrdersController < ApplicationController
   private
 
   def purchase_order_params
-    params.require(:purchase_order).permit(:po_image1, :po_image2, :po_image3)
+    params.require(:purchase_order).permit(:po_image1, :po_image2, :po_image3, :request_approval)
   end
 
   def set_purchase_order

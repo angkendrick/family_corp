@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     resources :purchase_orders, only: [:index, :show, :update]
   end
 
+  namespace :admin do
+    get '/pending', to: 'pending#show'
+  end
+
   namespace :configuration do
     resources :departments
     resources :accounts

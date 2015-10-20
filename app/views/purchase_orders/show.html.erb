@@ -182,6 +182,19 @@
 
   <br>
 
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-1">
+        <%= f.label 'Request Approval' %>
+      </div>
+      <div class="col-xs-1">
+        <%= f.check_box :request_approval, class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
   <div class="actions">
     <%= f.submit 'Update', class: 'btn btn-primary' %>
   </div>

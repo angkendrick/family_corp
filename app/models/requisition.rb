@@ -26,6 +26,15 @@ class Requisition < ActiveRecord::Base
                     :path => 'requisition/:filename'
   validates_attachment_content_type :requisition_image, :content_type => /\Aimage\/.*\Z/
 
+  # next and previous company requisition
+  def next
+    self.class.where("id > ?", id).where(request_approval: 1).first
+  end
+
+  def previous
+    self.class.where("id < ?", id).where(request_approval: 1).last
+  end
+
   protected
 
   def rename_upload_image

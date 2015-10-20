@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019224831) do
+ActiveRecord::Schema.define(version: 20151020214453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20151019224831) do
     t.datetime "po_image3_updated_at"
     t.integer  "voucher_number"
     t.integer  "voucher_id"
+    t.integer  "request_approval",            default: 0
   end
 
   create_table "requisition_particulars", force: :cascade do |t|
