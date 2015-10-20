@@ -31,6 +31,43 @@
 
     <div class="row">
       <div class="col-md-4">
+        Request Status :
+      </div>
+      <div class="col-md-8">
+        <% if @purchase_order.request_approval == 0 %>
+          Not marked, a request for approval has not been sent
+        <% else %>
+          Marked, request for approval has been sent
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        Approval Status :
+      </div>
+      <div class="col-md-6">
+        <% if approved_po %>
+          Payment Voucher Available
+        <% else %>
+          Pending Approval
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        Last Updated :
+      </div>
+      <div class="col-md-6">
+        <%= @purchase_order.updated_at.strftime('%B %d, %Y ( %A )')%>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-4">
         PO #
       </div>
       <div class="col-md-7">

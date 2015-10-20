@@ -37,7 +37,7 @@
       </div>
       <div class="col-md-8">
         <% if @requisition.request_approval == 0 %>
-          Not marked, request for approval has not been sent
+          Not marked, a request for approval has not been sent
         <% else %>
           Marked, request for approval has been sent
         <% end %>
@@ -54,6 +54,15 @@
         <% else %>
         Pending Approval
         <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        Last Updated :
+      </div>
+      <div class="col-md-6">
+        <%= @requisition.updated_at.strftime('%B %d, %Y ( %A )')%>
       </div>
     </div>
 
@@ -158,4 +167,6 @@
 
 <br>
 
-<%= image_tag @requisition.requisition_image.url, class: 'img-rounded' %>
+<div class="col-md-4">
+  <%= image_tag @requisition.requisition_image.url, class: 'img-rounded' %>
+</div>
