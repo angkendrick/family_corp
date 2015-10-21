@@ -9,7 +9,8 @@
   <% @requisitions.each do |requisition| %>
     <% if requisition.company_id == company.id %>
       <%= requisition.requisition_number %> -
-      <%= requisition.company.name%> -
+      <%= requisition.company.name %> -
+      <%= requisition.asset.name %> -
       <%= 'NO PO' if requisition.purchase_order_id.nil? %> -
       <%= link_to 'view requisition', company_requisition_path(company, requisition) %><br>
     <% end %>
