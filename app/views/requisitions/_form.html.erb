@@ -92,17 +92,13 @@
 
   <%= image_tag @requisition.requisition_image.url, class: 'img-rounded' %>
 
+  <br><br>
 
   <div class="form-group">
     <div class="row">
-      <div class="col-md-1">
-        <%= f.label 'Request Approval' %>
-      </div>
-      <div class="col-xs-1">
-        <%= f.check_box :request_approval, class: 'form-control' %>
-      </div>
-    </div>
-  </div>
+      <div class="col-md-4">
+        <h3><span class="label label-danger">
+          <%= f.check_box :request_approval, class: 'form-group' %> Mark this requisition for approval
 
 
 
