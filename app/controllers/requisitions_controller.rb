@@ -97,7 +97,7 @@ private
   end
 
   def create_requisition_number
-    requisition_number = @company.requisitions.last.requisition_number
+    requisition_number = @company.requisitions.last
     requisition_number.nil? ? @new_number = 1 : @new_number = requisition_number + 1
   end
 
