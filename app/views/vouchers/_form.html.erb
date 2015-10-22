@@ -17,7 +17,7 @@
   <br>
 
   <span class="label label-primary">
-    <%= @voucher.created_at.strftime('created : %B %d %Y ( %A )') %>
+    <%= @voucher.created_at.strftime('created : %B %d %Y ( %A )') if @voucher.created_at %>
   </span>
 
   <br><br>
