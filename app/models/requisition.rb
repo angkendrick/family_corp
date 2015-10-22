@@ -11,7 +11,7 @@ class Requisition < ActiveRecord::Base
   validates_associated :requisition_particulars
 
   validates :requested_by_id, presence: :true
-  validates :requisition_number, uniqueness: :true
+  #validates :requisition_number, uniqueness: :true
 
   before_destroy :check_purchase_order
 
