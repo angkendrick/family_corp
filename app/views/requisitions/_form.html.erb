@@ -90,8 +90,9 @@
     </div>
   </div>
 
-
-
+  <% unless @requisition.requisition_image.url == 'default.jpg' %>
+  <%= image_tag @requisition.requisition_image.url, class: 'img-rounded' %>
+  <% end %>
   <br><br>
 
   <div class="form-group">
