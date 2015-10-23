@@ -7,7 +7,7 @@ module ApplicationHelper
 
   # used in navbar
   def company_list
-    @companies = Company.all
+    @companies = Company.all.order(name: :asc)
   end
 
   def current_company
